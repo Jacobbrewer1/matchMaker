@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/NYTimes/gziphandler"
 	"github.com/gorilla/mux"
 	"html/template"
@@ -39,10 +38,14 @@ func main() {
 	log.Println("Listening...")
 	r := mux.NewRouter()
 
-	http.ListenAndServe(":8081", nil)
 	r.Handle("/test", webHandlers(usage))
+
+	err := http.ListenAndServe(":8081", nil)
+	if err != nil {
+		log.Panicln(err)
+	}
 }
 
 func usage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Test")
+	log.Println("Test")
 }
