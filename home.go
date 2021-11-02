@@ -6,14 +6,32 @@ import (
 	"net/http"
 )
 
-type player struct {
+type playerType struct {
 	fname string
 	lname string
 	// Men are true and Women are false
 	gender bool
 }
 
-var players []player
+type games struct {
+	singles []singles
+	dubs    []doublesFormat
+}
+
+type singles struct {
+	playerOne playerType
+	playerTwo playerType
+}
+
+type doublesFormat struct {
+	playerOne   playerType
+	playerTwo   playerType
+	playerThree playerType
+	playerFour  playerType
+}
+
+var players []playerType
+var generatedGames []games
 
 func handleFilePath() {
 	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
@@ -30,13 +48,13 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	lname := r.FormValue("lname")
 	gender := r.FormValue("gender")
 
-	var tempPlayer player
+	var tempPlayer playerType
 
 	// Set men to true and women to false
 	if gender == "male" {
-		tempPlayer = player{fname, lname, true}
+		tempPlayer = playerType{fname, lname, true}
 	} else {
-		tempPlayer = player{fname, lname, false}
+		tempPlayer = playerType{fname, lname, false}
 	}
 
 	players = append(players, tempPlayer)
