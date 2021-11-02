@@ -5,6 +5,14 @@ import (
 	"log"
 	"net/http"
 )
+type player struct {
+	fname string
+	lname string
+	// Men are true and Women are false
+	gender bool
+}
+
+var players []player
 
 func handleFilePath() {
 	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
