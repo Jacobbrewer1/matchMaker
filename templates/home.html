@@ -8,6 +8,7 @@
 </head>
 <body>
 <script src="/assets/home.js"></script>
+
 <!-- Button to open the modal login form -->
 <button onclick="document.getElementById('id01').style.display='block'" class="addPlayer">Add Player</button>
 
@@ -23,16 +24,16 @@
         </div>
 
         <div class="container">
-            <label for="fname" style="align-content: center"><b>First Name</b></label>
-            <input type="text" placeholder="Enter First name" name="fname" required>
+            <label name="lbl1" style="align-content: center"><b>First Name</b></label>
+            firstName: <input name="firstName" type="text" placeholder="Enter First name" name="fname" required>
 
-            <label for="lname" style="align-content: center"><b>Last Name</b></label>
-            <input type="text" placeholder="Enter Last Name" name="lname" required>
+            <label name="lbl2" style="align-content: center"><b>Last Name</b></label>
+            lastName: <input name="lastName" type="text" placeholder="Enter Last Name" name="lname" required>
         </div>
 
         <div class="container" style="background-color:#f1f1f1; text-align: center">
             <button type="button" onclick="document.getElementById('id01').style.display='none'" class="modelButtons">Cancel</button>
-            <button id="subbtn" type="submit" class="modelButtons" onclick="submitPlayer()">Submit</button>
+            <button id="subbtn" type="submit" class="modelButtons" onclick="submitPlayer(firstName.value, lastName.value)">Submit</button>
         </div>
     </form>
 </div>

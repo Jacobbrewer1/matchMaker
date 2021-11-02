@@ -1,12 +1,16 @@
-function submitPlayer() {
+function submitPlayer(fname, lname) {
     $.ajax({
         url: '/test',
         method: 'post',
+        data: {
+            fname: fname,
+            lname: lname,
+        },
         success: (d) => {
-            console.log("Success")
+            alert("Player Added");
         },
         error: (d) => {
-            console.log("Error")
+            alert("An error occured. Please try again");
         }
     });
 }
