@@ -65,7 +65,24 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
+	_, _ = getPlayerCount(players)
+}
 
+func getPlayerCount(people []playerType) (int, int) {
+	var malePlayers int
+	var femalePlayers int
+
+	for _, person := range people {
+		if person.gender == true {
+			malePlayers++
+			continue
+		}
+		femalePlayers++
+	}
+
+	log.Printf("Male count: %v", malePlayers)
+	log.Printf("Female count: %v", femalePlayers)
+	return malePlayers, femalePlayers
 }
 
 func main() {
