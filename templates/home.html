@@ -14,26 +14,39 @@
 
 <!-- The Modal -->
 <div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'"
-        class="close" title="Close Modal">&times;</span>
-
-    <!-- Modal Content -->
-    <form class="modal-content animate" action="/addPlayer">
+    <form class="modal-content animate" action="/addplayer" method="post">
         <div class="imgcontainer">
-            <img src="/assets/be.png" alt="Shuttle" class="avatar">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="/assets/be.png" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
-            <label name="lbl1" style="align-content: center"><b>First Name</b></label>
-            firstName: <input name="firstName" type="text" placeholder="Enter First name" name="fname" required>
+            <label for="fname" style="align-content: center"><b>First Name</b></label>
+            <input type="text" placeholder="John" name="firstName" required>
 
-            <label name="lbl2" style="align-content: center"><b>Last Name</b></label>
-            lastName: <input name="lastName" type="text" placeholder="Enter Last Name" name="lname" required>
+            <label for="lname" style="align-content: center"><b>Last Name</b></label>
+            <input type="text" placeholder="Smith" name="lastName" required>
+        </div>
+
+        <div class="container">
+            Select Gender:
+            </br>
+            <label>
+                <input type="radio" name="gender" value="male" required>Male
+            </label>
+            </br>
+            <label>
+                <input type="radio" name="gender" value="female">Female
+            </label>
         </div>
 
         <div class="container" style="background-color:#f1f1f1; text-align: center">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="modelButtons">Cancel</button>
-            <button id="subbtn" type="submit" class="modelButtons" onclick="submitPlayer(firstName.value, lastName.value)">Submit</button>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="modelButtons">
+                Cancel
+            </button>
+            <button id="subbtn" type="submit" class="modelButtons"
+                    onclick="submitPlayer(firstName.value, lastName.value, gender.value)">Submit
+            </button>
         </div>
     </form>
 </div>
@@ -42,7 +55,7 @@
     var modal = document.getElementById('id01');
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }

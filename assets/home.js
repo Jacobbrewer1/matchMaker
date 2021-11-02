@@ -1,10 +1,14 @@
-function submitPlayer(fname, lname) {
+function submitPlayer(fname, lname, gender) {
+    if (fname == "" || lname == "" || gender == "") {
+        return;
+    }
     $.ajax({
         url: '/test',
         method: 'post',
         data: {
             fname: fname,
             lname: lname,
+            gender: gender,
         },
         success: (d) => {
             alert("Player Added");
