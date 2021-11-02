@@ -1,4 +1,8 @@
 # Match Maker
+## Labels
+[![CI](https://github.com/Jacobbrewer1/matchMaker/actions/workflows/ci.yml/badge.svg)](https://github.com/Jacobbrewer1/matchMaker/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/JacobBrewer1/matchMaker.svg)](https://github.com/Jacobbrewer1/matchMaker/blob/master/LICENSE)
+
 A web app designed to create games for people to play. this should be both singles and doubles.
 
 ---
