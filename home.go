@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 )
+
 type player struct {
 	fname string
 	lname string
@@ -24,7 +25,7 @@ func landingPage(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "home.html", nil)
 }
 
-func addPlayer(w http.ResponseWriter, r *http.Request) {
+func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	fname := r.FormValue("fname")
 	lname := r.FormValue("lname")
 	gender := r.FormValue("gender")
@@ -45,13 +46,18 @@ func addPlayer(w http.ResponseWriter, r *http.Request) {
 		"\nGender: " + gender)
 }
 
+func createGamesHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func main() {
 	handleFilePath()
 	http.HandleFunc("/", landingPage)
 
 	log.Println("Listening...")
 
-	http.HandleFunc("/test", addPlayer)
+	http.HandleFunc("/test", addPlayerHandler)
+	http.HandleFunc("/createGames", createGamesHandler)
 
 	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
