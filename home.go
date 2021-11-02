@@ -1,26 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"github.com/NYTimes/gziphandler"
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
 )
-
-type handleFunc func(http.ResponseWriter, *http.Request)
-
-func logHandler(h http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.RequestURI)
-		h(w, r)
-	}
-}
-
-func webHandlers(h handleFunc) http.Handler {
-	return gziphandler.GzipHandler(logHandler(http.HandlerFunc(h)))
-}
 
 func handleFilePath() {
 	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
@@ -37,12 +21,18 @@ func main() {
 	http.HandleFunc("/", landingPage)
 
 	log.Println("Listening...")
-	r := mux.NewRouter()
 
-	http.ListenAndServe(":8081", nil)
-	r.Handle("/test", webHandlers(usage))
+	http.HandleFunc("/test", addPlayer)
+
+	err := http.ListenAndServe(":8081", nil)
+	if err != nil {
+		log.Panicln(err)
+	}
 }
 
-func usage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Test")
+func addPlayer(w http.ResponseWriter, r *http.Request) {
+	fname := r.FormValue("fname")
+	lname := r.FormValue("lname")
+	log.Println("Player Added" +
+		"\n" + fname + " " + lname)
 }
