@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 )
 
 type playerType struct {
@@ -48,10 +49,14 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	lname := r.FormValue("lname")
 	gender := r.FormValue("gender")
 
+	addPlayer(fname, lname, gender)
+}
+
+func addPlayer(fname string, lname string, gender string) {
 	var tempPlayer playerType
 
 	// Set men to true and women to false
-	if gender == "male" {
+	if strings.ToLower(gender) == "male" {
 		tempPlayer = playerType{fname, lname, true}
 	} else {
 		tempPlayer = playerType{fname, lname, false}
