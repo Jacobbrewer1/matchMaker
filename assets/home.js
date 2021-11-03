@@ -2,6 +2,13 @@ function submitPlayer(fname, lname, gender) {
     if (fname == "" || lname == "" || gender == "") {
         return;
     }
+
+    if (gender == "male") {
+        gender = true;
+    } else {
+        gender = false;
+    }
+
     $.ajax({
         url: '/test',
         method: 'post',
