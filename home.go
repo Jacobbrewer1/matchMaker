@@ -49,24 +49,27 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	lname := r.FormValue("lname")
 	gender := r.FormValue("gender")
 
-	addPlayer(fname, lname, gender)
+	_ = addPlayer(fname, lname, gender)
 }
 
-func addPlayer(fname string, lname string, gender string) {
-	var tempPlayer playerType
+func addPlayer(fname string, lname string, gender string) bool {
+
+	if fname == "" || lname == "" || gender == "" {
+		return false
+	}
+
+	var playerToBeAdded playerType
 
 	// Set men to true and women to false
 	if strings.ToLower(gender) == "male" {
-		tempPlayer = playerType{fname, lname, true}
+		playerToBeAdded = playerType{fname, lname, true}
 	} else {
-		tempPlayer = playerType{fname, lname, false}
+		playerToBeAdded = playerType{fname, lname, false}
 	}
 
-	players = append(players, tempPlayer)
+	players = append(players, playerToBeAdded)
 
-	log.Println("Player Added" +
-		"\nName: " + fname + " " + lname +
-		"\nGender: " + gender)
+	return true
 }
 
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
