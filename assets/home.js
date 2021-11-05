@@ -3,7 +3,7 @@ function submitPlayer(fname, lname, gender) {
         return;
     }
     $.ajax({
-        url: '/test',
+        url: '/addPlayer',
         method: 'post',
         data: {
             fname: fname,
@@ -14,7 +14,20 @@ function submitPlayer(fname, lname, gender) {
             alert("Player Added");
         },
         error: (d) => {
-            alert("An error occured. Please try again");
+            alert("An error occurred. Please try again");
+        }
+    });
+}
+
+function generateGames() {
+    $.ajax({
+        url: '/createGames',
+        method: 'post',
+        success: (d) => {
+            alert("Generated Games");
+        },
+        error: (d) => {
+            alert("An error occurred. Please try again");
         }
     });
 }

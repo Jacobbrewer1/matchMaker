@@ -31,4 +31,5 @@ jobs:
       - name: Run build
         run: go build
 
-# Add [ go test ] here when we have written the unit tests
+      - name: Run tests
+        run: go test -v
