@@ -114,8 +114,8 @@ func generateRandomGames(players []playerType) []doublesFormat {
 		}
 	}
 
-	for _, dub := range tempDubsArray {
-		log.Println(dub)
+	for gameId, dub := range tempDubsArray {
+		log.Printf("Game %v: %v", gameId, dub)
 	}
 
 	return tempDubsArray
@@ -174,9 +174,9 @@ func generateRandomPairs(people []playerType) []partners {
 		}
 	}
 
-	/*	for _, pair := range tempPairArray {
-		log.Println(pair)
-	}*/
+		for pairId, pair := range tempPairArray {
+			log.Printf("Pair %v: %v", pairId, pair)
+	}
 
 	return tempPairArray
 }
