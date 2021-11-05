@@ -99,7 +99,8 @@ func main() {
 
 	log.Println("Listening...")
 
-	http.HandleFunc("/test", addPlayerHandler)
+	http.HandleFunc("/addPlayer", addPlayerHandler)
+
 	http.HandleFunc("/createGames", createGamesHandler)
 
 	err := http.ListenAndServe(":8081", nil)

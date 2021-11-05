@@ -3,7 +3,7 @@ function submitPlayer(fname, lname, gender) {
         return;
     }
     $.ajax({
-        url: '/test',
+        url: '/addPlayer',
         method: 'post',
         data: {
             fname: fname,
