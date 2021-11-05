@@ -6,15 +6,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Home - Match Maker</title>
 </head>
+
 <body>
 <script src="/assets/home.js"></script>
 
 <!-- Button to open the modal login form -->
 <button onclick="document.getElementById('id01').style.display='block'" class="addPlayer">Add Player</button>
 
+<button onclick="generateGames()">Generate Games</button>
+
 <!-- The Modal -->
 <div id="id01" class="modal">
-    <form class="modal-content animate" action="/addplayer" method="post">
+    <form class="modal-content animate" action="/addplayerForm" method="post">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             <img src="/assets/be.png" alt="Avatar" class="avatar">
