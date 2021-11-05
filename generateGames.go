@@ -7,6 +7,10 @@ import (
 	"strconv"
 )
 
+const pairs_text = "pair(s)"
+const players_text = "player(s)"
+const games_text ="game(s)"
+
 type singles struct {
 	playerOne playerType
 	playerTwo playerType
@@ -63,7 +67,7 @@ func generateRandomGames(players []playerType) []doublesFormat {
 		return nil
 	}
 
-	maxGames := maxNumber(pairsTotal)
+	maxGames := maxNumber(pairsTotal, games_text, pairs_text)
 
 	var tempDubsArray []doublesFormat
 	var tempDubs doublesFormat
@@ -110,9 +114,9 @@ func generateRandomGames(players []playerType) []doublesFormat {
 		}
 	}
 
-	/*	for _, pair := range tempPairArray {
-		log.Println(pair)
-	}*/
+	for _, dub := range tempDubsArray {
+		log.Println(dub)
+	}
 
 	return tempDubsArray
 }
@@ -124,7 +128,7 @@ func generateRandomPairs(people []playerType) []partners {
 		return nil
 	}
 
-	maxPairs := maxNumber(playersTotal)
+	maxPairs := maxNumber(playersTotal, pairs_text, players_text)
 
 	var tempPairArray []partners
 	var tempPair partners
@@ -177,25 +181,25 @@ func generateRandomPairs(people []playerType) []partners {
 	return tempPairArray
 }
 
-func maxNumber(maxNumber int) int {
+func maxNumber(maxNumber int, textOne string, textTwo string) int {
 	max := maxNumber * (maxNumber - 1) / 2
-	log.Printf("Max number of pairs for %v players: %v", maxNumber, max)
+	log.Printf("Max number of %v for %v %v: %v", textOne, maxNumber, textTwo, max)
 	return max
 }
 
 func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool) {
 	if max < 2 {
 		return playerType{
-			fname:  "",
-			lname:  "",
-			gender: true,
-		},
-		playerType{
-			fname:  "",
-			lname:  "",
-			gender: false,
-		},
-		true
+				fname:  "",
+				lname:  "",
+				gender: true,
+			},
+			playerType{
+				fname:  "",
+				lname:  "",
+				gender: false,
+			},
+			true
 	}
 
 	n1 := rand.Intn(max)

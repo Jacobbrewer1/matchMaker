@@ -49,7 +49,7 @@ func Test_maxNumber(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotInt := maxNumber(len(tt.players))
+			gotInt := maxNumber(len(tt.players), pairs_text, players_text)
 			if gotInt != tt.expectedMax {
 				t.Errorf("maxNumber() = %v, expected %v", gotInt, tt.expectedMax)
 			}
