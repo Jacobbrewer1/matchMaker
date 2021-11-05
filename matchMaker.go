@@ -14,25 +14,7 @@ type playerType struct {
 	gender bool
 }
 
-type games struct {
-	singles []singles
-	dubs    []doublesFormat
-}
-
-type singles struct {
-	playerOne playerType
-	playerTwo playerType
-}
-
-type doublesFormat struct {
-	playerOne   playerType
-	playerTwo   playerType
-	playerThree playerType
-	playerFour  playerType
-}
-
 var players []playerType
-var generatedGames []games
 
 func handleFilePath() {
 	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
@@ -72,10 +54,6 @@ func addPlayer(fname string, lname string, gender string) bool {
 	return true
 }
 
-func createGamesHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = getPlayerCount(players)
-}
-
 func getPlayerCount(people []playerType) (int, int) {
 	var malePlayers int
 	var femalePlayers int
@@ -92,6 +70,7 @@ func getPlayerCount(people []playerType) (int, int) {
 	log.Printf("Female count: %v", femalePlayers)
 	return malePlayers, femalePlayers
 }
+
 
 func main() {
 	handleFilePath()

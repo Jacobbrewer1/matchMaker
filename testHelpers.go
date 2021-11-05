@@ -1,11 +1,13 @@
 package main
 
 import (
+	"log"
+	"math/rand"
 	"strconv"
-	"testing"
 )
 
-func setupPlayersArray() []playerType {
+func setupPlayersArray(numberOfPlayers int) []playerType {
+	numberOfPlayers--
 	playerCount := 0
 	var testPlayers []playerType
 	for {
@@ -21,7 +23,7 @@ func setupPlayersArray() []playerType {
 
 		testPlayers = append(testPlayers, tempPlayer)
 		playerCount++
-		if playerCount > 9 {
+		if playerCount > numberOfPlayers {
 			break
 		}
 	}
@@ -111,54 +113,94 @@ func setupGenderStrings(playerCount int, blank bool) []string {
 	return genders
 }
 
-func Test_addPlayer(t *testing.T) {
-	tests := []struct {
-		name           string
-		players        []playerType
-		genders        []string
-		expectedResult bool
-	}{
-		{"Even Count", setupPlayersArray(), setupGenderStrings(10, false), true},
-		{"All male", setupSingleGenderPlayers(true), setupGenderStrings(10, false), true},
-		{"All female", setupSingleGenderPlayers(false), setupGenderStrings(10, false), true},
-		{"Fail players", setupPlayersArray(), setupGenderStrings(10, true), false},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			for personId, person := range tt.players {
-				got := addPlayer(person.fname, person.lname, tt.genders[personId])
-				if got != tt.expectedResult {
-					t.Errorf("getPlayerCount() = %v, expected %v", got, tt.expectedResult)
-				}
+func checkForDuplicatesPairs(pairings []partners) bool {
+	for pairId, pair := range pairings {
+		for selectedPairId, selectedPair := range pairings {
+			if pairId == selectedPairId {
+				continue
 			}
-		})
+			if pair == selectedPair {
+				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
+				return false
+			}
+		}
 	}
-
+	return false
 }
 
-func Test_getPlayerCount(t *testing.T) {
-	tests := []struct {
-		name                string
-		players             []playerType
-		expectedMaleCount   int
-		expectedFemaleCount int
-	}{
-		{"Even Count", setupPlayersArray(), 5, 5},
-		{"One third Female", setupThirdFemaleArray(), 7, 3},
-		{"All male", setupSingleGenderPlayers(true), 10, 0},
-		{"All female", setupSingleGenderPlayers(false), 0, 10},
+func checkForDuplicatesGamesDoubles(pairings []doublesFormat) bool {
+	for pairId, pair := range pairings {
+		for selectedPairId, selectedPair := range pairings {
+			if pairId == selectedPairId {
+				continue
+			}
+			if pair == selectedPair {
+				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
+				return false
+			}
+		}
 	}
+	return false
+}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			gotMale, gotFemale := getPlayerCount(tt.players)
-			if gotMale != tt.expectedMaleCount {
-				t.Errorf("getPlayerCount() = %v, expected %v", gotMale, tt.expectedMaleCount)
+func setupPartnersArray(numberOfPairs int) []partners {
+	playersArray := setupPlayersArray(numberOfPairs * 2)
+	max := len(playersArray)
+
+	pairCount := 0
+
+	var testPairArray []partners
+
+	for {
+		var tempPair partners
+
+		var p1 playerType
+		var p2 playerType
+
+		for {
+			n1 := rand.Intn(max)
+			n2 := rand.Intn(max)
+
+			if n1 < n2 {
+				p1 = playersArray[n1]
+				p2 = playersArray[n2]
+			} else {
+				p1 = playersArray[n2]
+				p2 = playersArray[n1]
 			}
-			if gotFemale != tt.expectedFemaleCount {
-				t.Errorf("got %v, expected %v", gotFemale, tt.expectedFemaleCount)
+
+			if p1 != p2 {
+				break
 			}
-		})
+		}
+
+		tempPair.playerOne = p1
+		tempPair.playerTwo = p2
+
+		check := false
+		for _, pair := range testPairArray {
+			if pair == tempPair {
+				check = true
+				break
+			}
+		}
+
+		if check {
+			continue
+		}
+
+		testPairArray = append(testPairArray, tempPair)
+
+		pairCount++
+		if pairCount == numberOfPairs {
+			break
+		}
+
+		testPairArray = append(testPairArray, tempPair)
+		pairCount++
+		if pairCount > numberOfPairs {
+			break
+		}
 	}
+	return testPairArray
 }
