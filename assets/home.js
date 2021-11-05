@@ -14,7 +14,7 @@ function submitPlayer(fname, lname, gender) {
             alert("Player Added");
         },
         error: (d) => {
-            alert("An error occured. Please try again");
+            alert("An error occurred. Please try again");
         }
     });
 }
