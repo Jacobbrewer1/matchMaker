@@ -9,7 +9,7 @@ import (
 
 const pairs_text = "pair(s)"
 const players_text = "player(s)"
-const games_text ="game(s)"
+const games_text = "game(s)"
 
 type singles struct {
 	playerOne playerType
@@ -55,16 +55,21 @@ func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 
 	setupPlayersArrayTest()
 
-	_ = generateRandomGames(players)
+	_, _ = generateRandomGames(players)
 }
 
-func generateRandomGames(players []playerType) []doublesFormat {
+func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
+	if len(players) < 4 {
+		log.Println("Not enough played added, no games generated")
+		return nil, true
+	}
+
 	pairs := generateRandomPairs(players)
 
 	pairsTotal := len(pairs)
 	if pairsTotal < 2 {
 		log.Println("Not enough played added, no games generated")
-		return nil
+		return nil, false
 	}
 
 	maxGames := maxNumber(pairsTotal, games_text, pairs_text)
@@ -84,7 +89,7 @@ func generateRandomGames(players []playerType) []doublesFormat {
 			p1, p2, fail = getRandomPair(pairsTotal, pairs)
 			if fail {
 				log.Println("Not enough played added, no games generated")
-				return nil
+				return nil, true
 			}
 			if p1 != p2 {
 				break
@@ -118,7 +123,7 @@ func generateRandomGames(players []playerType) []doublesFormat {
 		log.Printf("Game %v: %v", gameId, dub)
 	}
 
-	return tempDubsArray
+	return tempDubsArray, false
 }
 
 func generateRandomPairs(people []playerType) []partners {
@@ -174,8 +179,8 @@ func generateRandomPairs(people []playerType) []partners {
 		}
 	}
 
-		for pairId, pair := range tempPairArray {
-			log.Printf("Pair %v: %v", pairId, pair)
+	for pairId, pair := range tempPairArray {
+		log.Printf("Pair %v: %v", pairId, pair)
 	}
 
 	return tempPairArray

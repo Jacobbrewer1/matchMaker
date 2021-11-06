@@ -132,22 +132,26 @@ func Test_generatePairs(t *testing.T) {
 
 func Test_generateGames(t *testing.T) {
 	tests := []struct {
-		name    string
-		players []playerType
+		name         string
+		players      []playerType
+		expectedFail bool
 	}{
-		{"1 Player", setupPlayersArray(1)},
-		{"3 Players", setupPlayersArray(3)},
-		{"7 Players", setupPlayersArray(7)},
-		{"10 Players", setupPlayersArray(10)},
-		{"11 Players", setupPlayersArray(11)},
-		{"17 Players", setupPlayersArray(17)},
-		{"21 Players", setupPlayersArray(21)},
+		{"1 Player", setupPlayersArray(1), true},
+		{"3 Players", setupPlayersArray(3),true},
+		{"7 Players", setupPlayersArray(7), false},
+		{"10 Players", setupPlayersArray(10), false},
+		{"11 Players", setupPlayersArray(11), false},
+		{"17 Players", setupPlayersArray(17), false},
+		{"21 Players", setupPlayersArray(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotGames := generateRandomGames(tt.players)
+			gotGames, gotFailed := generateRandomGames(tt.players)
+			if gotFailed != tt.expectedFail {
+				t.Errorf("generateRandomPairs() = %v, expected %v", gotFailed, tt.expectedFail)
+			}
 			if checkForDuplicatesGamesDoubles(gotGames) {
-				t.Errorf("generateRandomPairs() = %v, expected %v", false, true)
+				t.Errorf("generateRandomPairs() contains duplicates, expected no duplicates")
 			}
 		})
 	}
