@@ -11,10 +11,10 @@ function submitPlayer(fname, lname, gender) {
             gender: gender,
         },
         success: (d) => {
-            alert("Player Added");
+            console.log("Player Added");
         },
         error: (d) => {
-            alert("An error occurred. Please try again");
+            console.log("An error occurred. Please try again");
         }
     });
 }
@@ -24,10 +24,10 @@ function generateGames() {
         url: '/createGames',
         method: 'post',
         success: (d) => {
-            alert("Generated Games");
+            console.log("Generated Games");
         },
         error: (d) => {
-            alert("An error occurred. Please try again");
+            console.log("An error occurred. Please try again");
         }
     });
 }

@@ -22,8 +22,8 @@ func handleFilePath() {
 }
 
 func landingPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./templates/home.html"))
-	tmpl.ExecuteTemplate(w, "home.html", nil)
+	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
+	tmpl.ExecuteTemplate(w, "home", nil)
 }
 
 func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
