@@ -29,7 +29,7 @@ jobs:
           go get matchMaker
 
       - name: Run build
-        run: go build
+        run: go build -v
 
       - name: Run tests
         run: go test -v
