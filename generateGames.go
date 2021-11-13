@@ -119,10 +119,6 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 		}
 	}
 
-	for gameId, dub := range tempDubsArray {
-		log.Printf("Game %v: %v", gameId, dub)
-	}
-
 	return tempDubsArray, false
 }
 
@@ -177,10 +173,6 @@ func generateRandomPairs(people []playerType) []partners {
 		if pairCount == maxPairs {
 			break
 		}
-	}
-
-	for pairId, pair := range tempPairArray {
-		log.Printf("Pair %v: %v", pairId, pair)
 	}
 
 	return tempPairArray
