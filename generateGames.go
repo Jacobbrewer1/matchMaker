@@ -34,12 +34,12 @@ func setupPlayersArrayTest() {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.fname = "Test"
-		tempPlayer.lname = strconv.Itoa(playerCount)
+		tempPlayer.Fname = "Test"
+		tempPlayer.Lname = strconv.Itoa(playerCount)
 		if playerCount%2 == 0 {
-			tempPlayer.gender = true
+			tempPlayer.Gender = true
 		} else {
-			tempPlayer.gender = false
+			tempPlayer.Gender = false
 		}
 
 		players = append(players, tempPlayer)
@@ -55,7 +55,12 @@ func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 
 	setupPlayersArrayTest()
 
-	_, _ = generateRandomGames(players)
+	_, fail := generateRandomGames(players)
+	if fail {
+		log.Panicln("No games generated. Stopping process now")
+		return
+	}
+	log.Println("Games generated successfully")
 }
 
 func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
@@ -187,14 +192,14 @@ func maxNumber(maxNumber int, textOne string, textTwo string) int {
 func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool) {
 	if max < 2 {
 		return playerType{
-				fname:  "",
-				lname:  "",
-				gender: true,
+				Fname:  "",
+				Lname:  "",
+				Gender: true,
 			},
 			playerType{
-				fname:  "",
-				lname:  "",
-				gender: false,
+				Fname:  "",
+				Lname:  "",
+				Gender: false,
 			},
 			true
 	}

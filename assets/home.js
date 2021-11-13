@@ -1,22 +1,31 @@
-function submitPlayer(fname, lname, gender) {
-    if (fname == "" || lname == "" || gender == "") {
-        return;
+var players = document.querySelector('#players');
+
+function onSubmit(evt) {
+    evt.preventDefault()
+    let form = evt.target;
+    let formData = new FormData(form);
+    let fname = formData.get('firstName');
+    let lname = formData.get('lastName');
+    let gender = formData.get('gender');
+    if (fname != "" || lname != "" || gender != "") {
+        $.ajax({
+            url: '/addPlayer',
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (d) => {
+                console.log("Player Added", d);
+                players.innerHTML += d;
+                form.reset();
+            },
+            error: (d) => {
+                console.log("An error occurred. Please try again");
+            }
+        });
     }
-    $.ajax({
-        url: '/addPlayer',
-        method: 'post',
-        data: {
-            fname: fname,
-            lname: lname,
-            gender: gender,
-        },
-        success: (d) => {
-            console.log("Player Added");
-        },
-        error: (d) => {
-            console.log("An error occurred. Please try again");
-        }
-    });
+
+    return false;
 }
 
 function generateGames() {
@@ -25,6 +34,7 @@ function generateGames() {
         method: 'post',
         success: (d) => {
             console.log("Generated Games");
+            location.reload();
         },
         error: (d) => {
             console.log("An error occurred. Please try again");

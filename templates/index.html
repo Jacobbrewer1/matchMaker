@@ -1,5 +1,5 @@
 {{ define "home" }}
-<head>
+<head xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -7,16 +7,21 @@
 </head>
 
 <body>
-<script src="/assets/home.js"></script>
 
 <!-- Button to open the modal login form -->
 <button onclick="document.getElementById('id01').style.display='block'" class="addPlayer">Add Player</button>
 
 <button onclick="generateGames()">Generate Games</button>
 
+</br>
+
+{{ template "displayPlayer" .}}
+
+</br>
+
 <!-- The Modal -->
 <div id="id01" class="modal">
-    <form class="modal-content animate" action="/addplayerForm" method="post">
+    <form class="modal-content animate" action="/" method="post" onsubmit="return onSubmit(event);">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             <img src="/assets/be.png" alt="Avatar" class="avatar">
@@ -46,12 +51,15 @@
             <button type="button" onclick="document.getElementById('id01').style.display='none'" class="modelButtons">
                 Cancel
             </button>
-            <button id="subbtn" type="submit" class="modelButtons"
-                    onclick="submitPlayer(firstName.value, lastName.value, gender.value)">Submit
+            <button id="subbtn" type="submit" class="modelButtons">Submit
             </button>
         </div>
     </form>
+    <div>
+        <table id="players"></table>
+    </div>
 </div>
+<script src="/assets/home.js"></script>
 <script>
     // Get the modal
     var modal = document.getElementById('id01');
