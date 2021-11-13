@@ -142,7 +142,6 @@ func Test_generateGames(t *testing.T) {
 		{"10 Players", setupPlayersArray(10), false},
 		{"11 Players", setupPlayersArray(11), false},
 		{"17 Players", setupPlayersArray(17), false},
-		{"21 Players", setupPlayersArray(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
