@@ -7,9 +7,9 @@ import (
 	"strconv"
 )
 
-const pairs_text = "pair(s)"
-const players_text = "player(s)"
-const games_text = "game(s)"
+const pairsText = "pair(s)"
+const playersText = "player(s)"
+const gamesText = "game(s)"
 
 type singles struct {
 	playerOne playerType
@@ -72,7 +72,7 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 		return nil, false
 	}
 
-	maxGames := maxNumber(pairsTotal, games_text, pairs_text)
+	maxGames := maxNumber(pairsTotal, gamesText, pairsText)
 
 	var tempDubsArray []doublesFormat
 	var tempDubs doublesFormat
@@ -119,10 +119,6 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 		}
 	}
 
-	for gameId, dub := range tempDubsArray {
-		log.Printf("Game %v: %v", gameId, dub)
-	}
-
 	return tempDubsArray, false
 }
 
@@ -133,7 +129,7 @@ func generateRandomPairs(people []playerType) []partners {
 		return nil
 	}
 
-	maxPairs := maxNumber(playersTotal, pairs_text, players_text)
+	maxPairs := maxNumber(playersTotal, pairsText, playersText)
 
 	var tempPairArray []partners
 	var tempPair partners
@@ -177,10 +173,6 @@ func generateRandomPairs(people []playerType) []partners {
 		if pairCount == maxPairs {
 			break
 		}
-	}
-
-	for pairId, pair := range tempPairArray {
-		log.Printf("Pair %v: %v", pairId, pair)
 	}
 
 	return tempPairArray
