@@ -22,8 +22,6 @@ func handleFilePath() {
 	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
-	//templates = template.Must(template.ParseFiles("./templates/index.html", "./templates/displayPlayer.html"))
-
 	templates = template.Must(template.New("").ParseGlob("./templates/*.html"))
 }
 

@@ -13,11 +13,9 @@
 
 <button onclick="generateGames()">Generate Games</button>
 
-</br>
-
-{{ template "displayPlayer" .}}
-
-</br>
+<div>
+    <table id="players"></table>
+</div>
 
 <!-- The Modal -->
 <div id="id01" class="modal">
@@ -55,9 +53,6 @@
             </button>
         </div>
     </form>
-    <div>
-        <table id="players"></table>
-    </div>
 </div>
 <script src="/assets/home.js"></script>
 <script>

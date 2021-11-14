@@ -1,13 +1,52 @@
 {{ define "displayPlayer" }}
-<tr>
-    <td>
-        {{ .Fname }}
-    </td>
-    <td>
-        {{ .Lname }}
-    </td>
-    <td>
-        {{ .Gender }}
-    </td>
-</tr>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<table style="width:70%">
+    <tr>
+        <th>
+            Player Field
+        </th>
+        <th>
+            Player Data
+        </th>
+    </tr>
+    <tr>
+        <td>
+            First name
+        </td>
+        <td style="text-align: right">
+            {{ .Fname }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Last name
+        </td>
+        <td style="text-align: right">
+            {{ .Lname }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Gender
+        </td>
+        <td style="text-align: right">
+            {{ if .Gender }}
+            Male
+            {{ else }}
+            Female
+            {{ end }}
+        </td>
+    </tr>
+</table>
+</body>
+</html>
 {{ end }}
