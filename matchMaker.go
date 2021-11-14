@@ -42,8 +42,9 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 	if addPlayer(Fname, Lname, Gender) {
 		log.Printf("Player added: %v, %v, %v", Fname, Lname, Gender)
+
 		// return the last element added to slice before it was always returning the first element.
-		err := templates.ExecuteTemplate(w, "displayPlayer", players[len(players) - 1])
+		err := templates.ExecuteTemplate(w, "displayPlayer", players[len(players)-1])
 		if err != nil {
 			log.Panicln(err)
 			return
@@ -87,7 +88,6 @@ func getPlayerCount(people []playerType) (int, int) {
 	log.Printf("Female count: %v", femalePlayers)
 	return malePlayers, femalePlayers
 }
-
 
 func main() {
 	handleFilePath()

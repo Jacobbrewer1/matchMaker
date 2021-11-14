@@ -137,7 +137,7 @@ func Test_generateGames(t *testing.T) {
 		expectedFail bool
 	}{
 		{"1 Player", setupPlayersArray(1), true},
-		{"3 Players", setupPlayersArray(3),true},
+		{"3 Players", setupPlayersArray(3), true},
 		{"7 Players", setupPlayersArray(7), false},
 		{"10 Players", setupPlayersArray(10), false},
 		{"11 Players", setupPlayersArray(11), false},
