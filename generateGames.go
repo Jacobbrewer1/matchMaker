@@ -34,12 +34,12 @@ func setupPlayersArrayTest() {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.Fname = "Test"
-		tempPlayer.Lname = strconv.Itoa(playerCount)
+		tempPlayer.fname = "Test"
+		tempPlayer.lname = strconv.Itoa(playerCount)
 		if playerCount%2 == 0 {
-			tempPlayer.Gender = true
+			tempPlayer.gender = true
 		} else {
-			tempPlayer.Gender = false
+			tempPlayer.gender = false
 		}
 
 		players = append(players, tempPlayer)
@@ -192,14 +192,14 @@ func maxNumber(maxNumber int, textOne string, textTwo string) int {
 func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool) {
 	if max < 2 {
 		return playerType{
-				Fname:  "",
-				Lname:  "",
-				Gender: true,
+				fname:  "",
+				lname:  "",
+				gender: true,
 			},
 			playerType{
-				Fname:  "",
-				Lname:  "",
-				Gender: false,
+				fname:  "",
+				lname:  "",
+				gender: false,
 			},
 			true
 	}

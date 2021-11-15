@@ -1,8 +1,14 @@
 {{ define "home" }}
 <head xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/assets/home.css">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
     <title>Home - Match Maker</title>
 </head>
 
@@ -17,12 +23,16 @@
     <table id="players"></table>
 </div>
 
+<div class="modal" id="playerSpinner" style="display:none">
+    <div class="spinner-grow text-info"></div>
+</div>
+
 <!-- The Modal -->
 <div id="id01" class="modal">
     <form class="modal-content animate" action="/" method="post" onsubmit="return onSubmit(event);">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <img src="/assets/be.png" alt="Avatar" class="avatar">
+            <img src="/assets/images/be.png" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
@@ -54,7 +64,7 @@
         </div>
     </form>
 </div>
-<script src="/assets/home.js"></script>
+<script src="/assets/js/home.js"></script>
 <script>
     // Get the modal
     var modal = document.getElementById('id01');
