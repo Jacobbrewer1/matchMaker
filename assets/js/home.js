@@ -8,6 +8,8 @@ function onSubmit(evt) {
     let lname = formData.get('lastName');
     let gender = formData.get('gender');
     if (fname != "" || lname != "" || gender != "") {
+        $('#playerSpinner').show();
+        $('#id01').hide();
         $.ajax({
             url: '/addPlayer',
             method: 'post',
@@ -15,6 +17,7 @@ function onSubmit(evt) {
             processData: false,
             contentType: false,
             success: (d) => {
+                $('#playerSpinner').hide();
                 console.log("Player Added", d);
                 players.innerHTML += d;
                 form.reset();
