@@ -13,12 +13,12 @@ func setupPlayersArray(numberOfPlayers int) []playerType {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.Fname = "Test"
-		tempPlayer.Lname = strconv.Itoa(playerCount)
+		tempPlayer.fname = "Test"
+		tempPlayer.lname = strconv.Itoa(playerCount)
 		if playerCount%2 == 0 {
-			tempPlayer.Gender = true
+			tempPlayer.gender = true
 		} else {
-			tempPlayer.Gender = false
+			tempPlayer.gender = false
 		}
 
 		testPlayers = append(testPlayers, tempPlayer)
@@ -36,12 +36,12 @@ func setupThirdFemaleArray() []playerType {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.Fname = "Test"
-		tempPlayer.Lname = strconv.Itoa(playerCount)
+		tempPlayer.fname = "Test"
+		tempPlayer.lname = strconv.Itoa(playerCount)
 		if playerCount%4 == 0 {
-			tempPlayer.Gender = false
+			tempPlayer.gender = false
 		} else {
-			tempPlayer.Gender = true
+			tempPlayer.gender = true
 		}
 
 		testPlayers = append(testPlayers, tempPlayer)
@@ -59,9 +59,9 @@ func setupSingleGenderPlayers(gender bool) []playerType {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.Fname = "Test"
-		tempPlayer.Lname = strconv.Itoa(playerCount)
-		tempPlayer.Gender = gender
+		tempPlayer.fname = "Test"
+		tempPlayer.lname = strconv.Itoa(playerCount)
+		tempPlayer.gender = gender
 
 		testPlayers = append(testPlayers, tempPlayer)
 		playerCount++
@@ -78,8 +78,8 @@ func setupErrorPlayers() []playerType {
 	for {
 		var tempPlayer playerType
 
-		tempPlayer.Fname = "Test"
-		tempPlayer.Lname = strconv.Itoa(playerCount)
+		tempPlayer.fname = "Test"
+		tempPlayer.lname = strconv.Itoa(playerCount)
 
 		testPlayers = append(testPlayers, tempPlayer)
 		playerCount++

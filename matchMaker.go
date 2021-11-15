@@ -8,10 +8,10 @@ import (
 )
 
 type playerType struct {
-	Fname string
-	Lname string
+	fname string
+	lname string
 	// Men are true and Women are false
-	Gender bool
+	gender bool
 }
 
 var players []playerType
@@ -34,15 +34,28 @@ func landingPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
-	Fname := r.FormValue("firstName")
-	Lname := r.FormValue("lastName")
-	Gender := r.FormValue("gender")
+	fname := r.FormValue("firstName")
+	lname := r.FormValue("lastName")
+	gender := r.FormValue("gender")
 
-	if addPlayer(Fname, Lname, Gender) {
-		log.Printf("Player added: %v, %v, %v", Fname, Lname, Gender)
+	if addPlayer(fname, lname, gender) {
+		log.Printf("Player added: %v, %v, %v", fname, lname, gender)
+
+		pagePlayerData := struct {
+			PlayerId int
+			Fname string
+			Lname string
+			Gender bool
+		}{
+			len(players), fname,lname, false,
+		}
+
+		if gender == "male" {
+			pagePlayerData.Gender = true
+		}
 
 		// return the last element added to slice before it was always returning the first element.
-		err := templates.ExecuteTemplate(w, "displayPlayer", players[len(players)-1])
+		err := templates.ExecuteTemplate(w, "displayPlayer", pagePlayerData)
 		if err != nil {
 			log.Panicln(err)
 			return
@@ -50,19 +63,19 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addPlayer(Fname string, Lname string, Gender string) bool {
+func addPlayer(fname string, lname string, gender string) bool {
 
-	if Fname == "" || Lname == "" || Gender == "" {
+	if fname == "" || lname == "" || gender == "" {
 		return false
 	}
 
 	var playerToBeAdded playerType
 
 	// Set men to true and women to false
-	if strings.ToLower(Gender) == "male" {
-		playerToBeAdded = playerType{Fname, Lname, true}
+	if strings.ToLower(gender) == "male" {
+		playerToBeAdded = playerType{fname, lname, true}
 	} else {
-		playerToBeAdded = playerType{Fname, Lname, false}
+		playerToBeAdded = playerType{fname, lname, false}
 	}
 
 	players = append(players, playerToBeAdded)
@@ -75,7 +88,7 @@ func getPlayerCount(people []playerType) (int, int) {
 	var femalePlayers int
 
 	for _, person := range people {
-		if person.Gender == true {
+		if person.gender == true {
 			malePlayers++
 			continue
 		}
