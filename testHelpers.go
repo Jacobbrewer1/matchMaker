@@ -10,6 +10,7 @@ func setupPlayersArray(numberOfPlayers int) []playerType {
 	numberOfPlayers--
 	playerCount := 0
 	var testPlayers []playerType
+	abilityTest := 1
 	for {
 		var tempPlayer playerType
 
@@ -19,6 +20,12 @@ func setupPlayersArray(numberOfPlayers int) []playerType {
 			tempPlayer.gender = true
 		} else {
 			tempPlayer.gender = false
+		}
+
+		tempPlayer.ability = abilityTest
+		abilityTest++
+		if abilityTest > 10 {
+			abilityTest = 1
 		}
 
 		testPlayers = append(testPlayers, tempPlayer)
@@ -33,6 +40,7 @@ func setupPlayersArray(numberOfPlayers int) []playerType {
 func setupThirdFemaleArray() []playerType {
 	playerCount := 0
 	var testPlayers []playerType
+	abilityTest := 1
 	for {
 		var tempPlayer playerType
 
@@ -42,6 +50,12 @@ func setupThirdFemaleArray() []playerType {
 			tempPlayer.gender = false
 		} else {
 			tempPlayer.gender = true
+		}
+
+		tempPlayer.ability = abilityTest
+		abilityTest++
+		if abilityTest > 10 {
+			abilityTest = 1
 		}
 
 		testPlayers = append(testPlayers, tempPlayer)
@@ -56,12 +70,19 @@ func setupThirdFemaleArray() []playerType {
 func setupSingleGenderPlayers(gender bool) []playerType {
 	playerCount := 0
 	var testPlayers []playerType
+	abilityTest := 1
 	for {
 		var tempPlayer playerType
 
 		tempPlayer.fname = "Test"
 		tempPlayer.lname = strconv.Itoa(playerCount)
 		tempPlayer.gender = gender
+
+		tempPlayer.ability = abilityTest
+		abilityTest++
+		if abilityTest > 10 {
+			abilityTest = 1
+		}
 
 		testPlayers = append(testPlayers, tempPlayer)
 		playerCount++
