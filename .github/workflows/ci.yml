@@ -27,11 +27,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run:
-          go get matchMaker
+        # This will install everything in the go.mod file
+        run: go get matchMaker
 
       - name: Run build
+        # This will provide a detailed log output of the new builds that are incomplete
         run: go build -v
+        # This will build everything again, log it out and log the working directory
+        #run: go build -a -v -work
 
       - name: Run tests
+        # This will provide detailed test logs for each individual test
         run: go test -v
