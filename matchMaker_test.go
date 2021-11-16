@@ -26,7 +26,7 @@ func Test_addPlayer(t *testing.T) {
 			for personId, person := range tt.players {
 				got := addPlayer(person.fname, person.lname, tt.genders[personId], person.ability)
 				if got != tt.expectedResult {
-					t.Errorf("getPlayerCount() = %v, expected %v", got, tt.expectedResult)
+					t.Errorf("addPlayer() = %v, expected %v", got, tt.expectedResult)
 				}
 			}
 		})
