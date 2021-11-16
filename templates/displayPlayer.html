@@ -1,5 +1,5 @@
 {{ define "displayPlayer" }}
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <style>
         table {
@@ -54,6 +54,14 @@
             {{ else }}
             Female
             {{ end }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Ability [/10]
+        </td>
+        <td style="text-align: right">
+            {{ .Ability }}
         </td>
     </tr>
 </table>
