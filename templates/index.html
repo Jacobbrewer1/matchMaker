@@ -1,8 +1,7 @@
 {{ define "home" }}
-<head xmlns="http://www.w3.org/1999/html">
+<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/home.css">
 
 
@@ -53,6 +52,14 @@
             <label>
                 <input type="radio" name="gender" value="female">Female
             </label>
+        </div>
+
+        </br>
+
+        <div class="slideContainer">
+            Select player strength. Further right, the stronger the player
+            </br>
+            <input type="range" min="1" max="10" value="1" class="slider" id="ability" name="ability">
         </div>
 
         <div class="container" style="background-color:#f1f1f1; text-align: center">

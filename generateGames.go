@@ -223,12 +223,12 @@ func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool
 func getRandomPair(max int, pairs []partners) (partners, partners, bool) {
 	if max < 2 {
 		return partners{
-				playerOne: playerType{"", "", true},
-				playerTwo: playerType{"", "", false},
+				playerOne: playerType{"", "", true, 0},
+				playerTwo: playerType{"", "", false, 0},
 			},
 			partners{
-				playerOne: playerType{"", "", true},
-				playerTwo: playerType{"", "", false},
+				playerOne: playerType{"", "", true, 0},
+				playerTwo: playerType{"", "", false, 0},
 			},
 			true
 	}

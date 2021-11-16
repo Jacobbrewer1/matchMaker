@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -12,6 +13,7 @@ type playerType struct {
 	lname string
 	// Men are true and Women are false
 	gender bool
+	ability int
 }
 
 var players []playerType
@@ -37,8 +39,15 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	fname := r.FormValue("firstName")
 	lname := r.FormValue("lastName")
 	gender := r.FormValue("gender")
+	ability := r.FormValue("ability")
 
-	if addPlayer(fname, lname, gender) {
+	atoi, err := strconv.Atoi(ability)
+	if err != nil {
+		log.Panicln(err)
+		return
+	}
+
+	if addPlayer(fname, lname, gender, atoi) {
 		log.Printf("Player added: %v, %v, %v", fname, lname, gender)
 
 		pagePlayerData := struct {
@@ -46,8 +55,9 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 			Fname string
 			Lname string
 			Gender bool
+			Ability int
 		}{
-			len(players), fname,lname, false,
+			len(players), fname,lname, false, atoi,
 		}
 
 		if gender == "male" {
@@ -63,7 +73,7 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addPlayer(fname string, lname string, gender string) bool {
+func addPlayer(fname string, lname string, gender string, ability int) bool {
 
 	if fname == "" || lname == "" || gender == "" {
 		return false
@@ -73,9 +83,9 @@ func addPlayer(fname string, lname string, gender string) bool {
 
 	// Set men to true and women to false
 	if strings.ToLower(gender) == "male" {
-		playerToBeAdded = playerType{fname, lname, true}
+		playerToBeAdded = playerType{fname, lname, true, ability}
 	} else {
-		playerToBeAdded = playerType{fname, lname, false}
+		playerToBeAdded = playerType{fname, lname, false, ability}
 	}
 
 	players = append(players, playerToBeAdded)
