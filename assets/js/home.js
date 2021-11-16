@@ -8,8 +8,8 @@ function onSubmit(evt) {
     let lname = formData.get('lastName');
     let gender = formData.get('gender');
     if (fname != "" || lname != "" || gender != "") {
-        $('#playerSpinner').show();
         $('#id01').hide();
+        $('#playerSpinner').show();
         $.ajax({
             url: '/addPlayer',
             method: 'post',
@@ -23,6 +23,7 @@ function onSubmit(evt) {
                 form.reset();
             },
             error: (d) => {
+                $('#playerSpinner').hide();
                 console.log("An error occurred. Please try again");
             }
         });

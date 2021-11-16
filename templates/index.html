@@ -1,9 +1,9 @@
 {{ define "home" }}
-<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/assets/css/home.css">
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.js"></script>
@@ -14,16 +14,23 @@
 <body>
 
 <!-- Button to open the modal login form -->
-<button onclick="document.getElementById('id01').style.display='block'" class="addPlayer">Add Player</button>
+<button name="addPlayerButton" id="addPlayerButton" type="button" class="addPlayer"
+        onclick="document.getElementById('id01').style.display='block'">
+    <span class="button__text">Add Player</span>
+</button>
 
-<button onclick="generateGames()">Generate Games</button>
+<button id="generateGames" type="button" class="button"
+        onclick="document.getElementById('generateGames').classList.toggle('button--loading'), generateGames()">
+    <span class="button__text">Generate Games</span>
+</button>
+
+<div class="spinner-grow" id="playerSpinner" style="position: absolute"></div>
+
+<br>
 
 <div>
+    <br>
     <table id="players"></table>
-</div>
-
-<div class="modal" id="playerSpinner" style="display:none">
-    <div class="spinner-grow text-info"></div>
 </div>
 
 <!-- The Modal -->

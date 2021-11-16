@@ -12,6 +12,138 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
+.button {
+    position: relative;
+    padding: 8px 16px;
+    background: #008cff;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 20%;
+}
+
+.button:active {
+    background: #007a63;
+}
+
+.button__text {
+    font: bold 20px "Quicksand", Arial;
+    color: #ffffff;
+    transition: all 0.2s;
+}
+
+.button--loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.button--loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@-webkit-keyframes spinner-border {
+    to {
+        transform: rotate(360deg) /* rtl:ignore */;
+    }
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg) /* rtl:ignore */;
+    }
+}
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: -0.125em;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: 0.75s linear infinite spinner-border;
+    animation: 0.75s linear infinite spinner-border;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+@-webkit-keyframes spinner-grow {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes spinner-grow {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: none;
+    }
+}
+.spinner-grow {
+    display: none;
+    color: #0dcaf0;
+    width: 7rem;
+    height: 7rem;
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-animation: 0.75s linear infinite spinner-grow;
+    animation: 0.75s linear infinite spinner-grow;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+}
+
+.spinner-grow-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner-border,
+    .spinner-grow {
+        -webkit-animation-duration: 1.5s;
+        animation-duration: 1.5s;
+    }
+}
+
 .slideContainer {
     width: 100%;
 }
@@ -48,14 +180,16 @@ input[type=text], input[type=password] {
 }
 
 .addPlayer {
+    font: bold 20px "Quicksand", Arial;
     background-color: #FF0000;
     color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
+    position: relative;
+    padding: 8px 16px;
     border: none;
+    outline: none;
+    border-radius: 2px;
     cursor: pointer;
-    width: 50%;
-    alignment: center;
+    width: 20%;
 }
 
 .modelButtons {
@@ -88,8 +222,8 @@ input[type=text], input[type=password] {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     padding: 60px 20px 10px;
 }
 
@@ -127,13 +261,21 @@ input[type=text], input[type=password] {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
-    to {-webkit-transform: scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
 
 @keyframes animatezoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
 
 /* Change styles for span and cancel button on extra small screens */
