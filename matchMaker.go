@@ -12,7 +12,7 @@ type playerType struct {
 	fname string
 	lname string
 	// Men are true and Women are false
-	gender bool
+	gender  bool
 	ability int
 }
 
@@ -52,12 +52,12 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 		pagePlayerData := struct {
 			PlayerId int
-			Fname string
-			Lname string
-			Gender bool
-			Ability int
+			Fname    string
+			Lname    string
+			Gender   bool
+			Ability  int
 		}{
-			len(players), fname,lname, false, atoi,
+			len(players), fname, lname, false, atoi,
 		}
 
 		if gender == "male" {
@@ -75,7 +75,7 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 func addPlayer(fname string, lname string, gender string, ability int) bool {
 
-	if fname == "" || lname == "" || gender == "" {
+	if fname == "" || lname == "" || gender == "" || (ability < 1 || 10 < ability) {
 		return false
 	}
 
