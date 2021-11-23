@@ -10,9 +10,9 @@ func Test_getPlayerCount(t *testing.T) {
 		expectedFemaleCount int
 	}{
 		{"Even Count", setupPlayersArray(10), 5, 5},
-		{"One third Female", setupThirdFemaleArray(), 7, 3},
-		{"All male", setupSingleGenderPlayers(true), 10, 0},
-		{"All female", setupSingleGenderPlayers(false), 0, 10},
+		{"One third Female", setupThirdFemaleArrayTest(), 7, 3},
+		{"All male", setupSingleGenderPlayersTest(true), 10, 0},
+		{"All female", setupSingleGenderPlayersTest(false), 0, 10},
 	}
 
 	for _, tt := range tests {
@@ -88,14 +88,14 @@ func Test_getPairs(t *testing.T) {
 		players      []partners
 		expectedFail bool
 	}{
-		{"1 Pair", setupPartnersArray(1), true},
-		{"3 Pairs", setupPartnersArray(3), false},
-		{"4 Pairs", setupPartnersArray(4), false},
-		{"7 Pairs", setupPartnersArray(7), false},
-		{"10 Pairs", setupPartnersArray(10), false},
-		{"11 Pairs", setupPartnersArray(11), false},
-		{"17 Pairs", setupPartnersArray(17), false},
-		{"21 Pairs", setupPartnersArray(21), false},
+		{"1 Pair", setupPartnersArrayTest(1), true},
+		{"3 Pairs", setupPartnersArrayTest(3), false},
+		{"4 Pairs", setupPartnersArrayTest(4), false},
+		{"7 Pairs", setupPartnersArrayTest(7), false},
+		{"10 Pairs", setupPartnersArrayTest(10), false},
+		{"11 Pairs", setupPartnersArrayTest(11), false},
+		{"17 Pairs", setupPartnersArrayTest(17), false},
+		{"21 Pairs", setupPartnersArrayTest(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -123,7 +123,7 @@ func Test_generatePairs(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotPairs := generateRandomPairs(tt.players)
-			if checkForDuplicatesPairs(gotPairs) {
+			if checkForDuplicatesPairsTest(gotPairs) {
 				t.Errorf("generateRandomPairs() = %v, expected %v", false, true)
 			}
 		})
@@ -149,7 +149,7 @@ func Test_generateGames(t *testing.T) {
 			if gotFailed != tt.expectedFail {
 				t.Errorf("generateRandomPairs() = %v, expected %v", gotFailed, tt.expectedFail)
 			}
-			if checkForDuplicatesGamesDoubles(gotGames) {
+			if checkForDuplicatesGamesDoublesTest(gotGames) {
 				t.Errorf("generateRandomPairs() contains duplicates, expected no duplicates")
 			}
 		})
