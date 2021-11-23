@@ -25,6 +25,7 @@ func handleFilePath() {
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
 	templates = template.Must(template.New("").ParseGlob("./templates/*.html"))
+	log.Println("Files parsed successfully")
 }
 
 func landingPage(w http.ResponseWriter, r *http.Request) {
@@ -33,6 +34,7 @@ func landingPage(w http.ResponseWriter, r *http.Request) {
 		log.Panicln(err)
 		return
 	}
+	log.Println("Template home executed successfully")
 }
 
 func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
@@ -70,6 +72,7 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 			log.Panicln(err)
 			return
 		}
+		log.Println("Template displayPlayer executed successfully")
 	}
 }
 
@@ -112,6 +115,8 @@ func getPlayerCount(people []playerType) (int, int) {
 
 func main() {
 	handleFilePath()
+
+	// Default home page
 	http.HandleFunc("/", landingPage)
 
 	log.Println("Listening...")
