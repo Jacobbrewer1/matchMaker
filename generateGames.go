@@ -29,7 +29,7 @@ type doublesFormat struct {
 var pairings []partners
 var generatedDoubles []doublesFormat
 
-func setupPlayersArrayTest() {
+func setupPlayersArray() {
 	playerCount := 0
 	for {
 		var tempPlayer playerType
@@ -53,7 +53,7 @@ func setupPlayersArrayTest() {
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 	// maleCount, femaleCount := getPlayerCount(players)
 
-	setupPlayersArrayTest()
+	setupPlayersArray()
 
 	randomGames, fail := generateRandomGames(players)
 	if fail {
