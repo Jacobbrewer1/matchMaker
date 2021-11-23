@@ -1,9 +1,13 @@
 name: CI
 
 on:
-  # This workflow should only run when there are pushes to the main branches as this displays on the ReadMe.md file
-  # Any deployment intergrations should also go in this worflow
   push:
+    branches:
+      - main
+      - master
+      - develop
+      - feature/*
+  pull_request:
     branches:
       - main
       - master

@@ -1,9 +1,8 @@
-name: CI
+name: PR Tester
 
 on:
-  # This workflow should only run when there are pushes to the main branches as this displays on the ReadMe.md file
-  # Any deployment intergrations should also go in this worflow
-  push:
+  # This should only run when a pull request is made to the main or a feature branch
+  pull_request:
     branches:
       - main
       - master
