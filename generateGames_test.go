@@ -9,7 +9,7 @@ func Test_getPlayerCount(t *testing.T) {
 		expectedMaleCount   int
 		expectedFemaleCount int
 	}{
-		{"Even Count", setupPlayersArray(10), 5, 5},
+		{"Even Count", setupPlayersArrayTest(10), 5, 5},
 		{"One third Female", setupThirdFemaleArrayTest(), 7, 3},
 		{"All male", setupSingleGenderPlayersTest(true), 10, 0},
 		{"All female", setupSingleGenderPlayersTest(false), 0, 10},
@@ -34,17 +34,17 @@ func Test_maxNumber(t *testing.T) {
 		players     []playerType
 		expectedMax int
 	}{
-		{"1 Player", setupPlayersArray(1), 0},
-		{"3 Players", setupPlayersArray(3), 3},
-		{"5 Players", setupPlayersArray(5), 10},
-		{"7 Players", setupPlayersArray(7), 21},
-		{"10 Players", setupPlayersArray(10), 45},
-		{"11 Players", setupPlayersArray(11), 55},
-		{"13 Players", setupPlayersArray(13), 78},
-		{"17 Players", setupPlayersArray(17), 136},
-		{"19 Players", setupPlayersArray(19), 171},
-		{"21 Players", setupPlayersArray(21), 210},
-		{"57 Players", setupPlayersArray(57), 1596},
+		{"1 Player", setupPlayersArrayTest(1), 0},
+		{"3 Players", setupPlayersArrayTest(3), 3},
+		{"5 Players", setupPlayersArrayTest(5), 10},
+		{"7 Players", setupPlayersArrayTest(7), 21},
+		{"10 Players", setupPlayersArrayTest(10), 45},
+		{"11 Players", setupPlayersArrayTest(11), 55},
+		{"13 Players", setupPlayersArrayTest(13), 78},
+		{"17 Players", setupPlayersArrayTest(17), 136},
+		{"19 Players", setupPlayersArrayTest(19), 171},
+		{"21 Players", setupPlayersArrayTest(21), 210},
+		{"57 Players", setupPlayersArrayTest(57), 1596},
 	}
 
 	for _, tt := range tests {
@@ -63,14 +63,14 @@ func Test_getPlayers(t *testing.T) {
 		players      []playerType
 		expectedFail bool
 	}{
-		{"1 Pair", setupPlayersArray(1), true},
-		{"3 Pairs", setupPlayersArray(3), false},
-		{"4 Pairs", setupPlayersArray(4), false},
-		{"7 Pairs", setupPlayersArray(7), false},
-		{"10 Pairs", setupPlayersArray(10), false},
-		{"11 Pairs", setupPlayersArray(11), false},
-		{"17 Pairs", setupPlayersArray(17), false},
-		{"21 Pairs", setupPlayersArray(21), false},
+		{"1 Pair", setupPlayersArrayTest(1), true},
+		{"3 Pairs", setupPlayersArrayTest(3), false},
+		{"4 Pairs", setupPlayersArrayTest(4), false},
+		{"7 Pairs", setupPlayersArrayTest(7), false},
+		{"10 Pairs", setupPlayersArrayTest(10), false},
+		{"11 Pairs", setupPlayersArrayTest(11), false},
+		{"17 Pairs", setupPlayersArrayTest(17), false},
+		{"21 Pairs", setupPlayersArrayTest(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -112,13 +112,13 @@ func Test_generatePairs(t *testing.T) {
 		name    string
 		players []playerType
 	}{
-		{"1 Player", setupPlayersArray(1)},
-		{"3 Players", setupPlayersArray(3)},
-		{"7 Players", setupPlayersArray(7)},
-		{"10 Players", setupPlayersArray(10)},
-		{"11 Players", setupPlayersArray(11)},
-		{"17 Players", setupPlayersArray(17)},
-		{"21 Players", setupPlayersArray(21)},
+		{"1 Player", setupPlayersArrayTest(1)},
+		{"3 Players", setupPlayersArrayTest(3)},
+		{"7 Players", setupPlayersArrayTest(7)},
+		{"10 Players", setupPlayersArrayTest(10)},
+		{"11 Players", setupPlayersArrayTest(11)},
+		{"17 Players", setupPlayersArrayTest(17)},
+		{"21 Players", setupPlayersArrayTest(21)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -136,12 +136,12 @@ func Test_generateGames(t *testing.T) {
 		players      []playerType
 		expectedFail bool
 	}{
-		{"1 Player", setupPlayersArray(1), true},
-		{"3 Players", setupPlayersArray(3), true},
-		{"7 Players", setupPlayersArray(7), false},
-		{"10 Players", setupPlayersArray(10), false},
-		{"11 Players", setupPlayersArray(11), false},
-		{"17 Players", setupPlayersArray(17), false},
+		{"1 Player", setupPlayersArrayTest(1), true},
+		{"3 Players", setupPlayersArrayTest(3), true},
+		{"7 Players", setupPlayersArrayTest(7), false},
+		{"10 Players", setupPlayersArrayTest(10), false},
+		{"11 Players", setupPlayersArrayTest(11), false},
+		{"17 Players", setupPlayersArrayTest(17), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
