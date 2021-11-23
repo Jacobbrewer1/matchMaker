@@ -157,31 +157,7 @@ func checkForDuplicatesGamesDoubles(pairings []doublesFormat) bool {
 			}
 			if pair == selectedPair {
 				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
-				return true
-			}
-			players := []playerType{
-				{pair.pairOne.playerOne.fname, pair.pairOne.playerOne.lname, pair.pairOne.playerOne.gender, pair.pairOne.playerOne.ability},
-				{pair.pairOne.playerTwo.fname, pair.pairOne.playerTwo.lname, pair.pairOne.playerTwo.gender, pair.pairOne.playerTwo.ability},
-				{pair.pairTwo.playerOne.fname, pair.pairTwo.playerOne.lname, pair.pairTwo.playerOne.gender, pair.pairTwo.playerOne.ability},
-				{pair.pairTwo.playerTwo.fname, pair.pairTwo.playerTwo.lname, pair.pairTwo.playerTwo.gender, pair.pairTwo.playerTwo.ability},
-			}
-			if checkGamePair(players) {
-				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
-				return true
-			}
-		}
-	}
-	return false
-}
-
-func checkGamePair(players []playerType) bool {
-	for playerId, player := range players {
-		for checkPlayerId, selectedPlayer := range players {
-			if playerId == checkPlayerId {
-				continue
-			}
-			if player == selectedPlayer {
-				return true
+				return false
 			}
 		}
 	}
