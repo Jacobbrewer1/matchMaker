@@ -14,15 +14,17 @@
 <body>
 
 <!-- Button to open the modal login form -->
-<button name="addPlayerButton" id="addPlayerButton" type="button" class="addPlayer"
-        onclick="document.getElementById('id01').style.display='block'">
-    <span class="button__text">Add Player</span>
-</button>
+<div style="align-items: center">
+    <button name="addPlayerButton" id="addPlayerButton" type="button" class="addPlayer"
+            onclick="document.getElementById('id01').style.display='block'">
+        <span class="button__text">Add Player</span>
+    </button>
 
-<button id="generateGames" type="button" class="button"
-        onclick="document.getElementById('generateGames').classList.toggle('button--loading'), generateGames()">
-    <span class="button__text">Generate Games</span>
-</button>
+    <button id="generateGames" type="button" class="button"
+            onclick="document.getElementById('generateGames').classList.toggle('button--loading'), generateGames()">
+        <span class="button__text">Generate Games</span>
+    </button>
+</div>
 
 <div class="spinner-grow" id="playerSpinner" style="position: absolute"></div>
 
@@ -30,7 +32,10 @@
 
 <div>
     <br>
-    <table id="players"></table>
+    <table id="players"
+           style="float: right"></table>
+    <table id="games"
+           style="float: left"></table>
 </div>
 
 <!-- The Modal -->

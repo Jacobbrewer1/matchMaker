@@ -55,12 +55,32 @@ func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 
 	setupPlayersArrayTest()
 
-	_, fail := generateRandomGames(players)
+	randomGames, fail := generateRandomGames(players)
 	if fail {
 		log.Panicln("No games generated. Stopping process now")
 		return
 	}
 	log.Println("Games generated successfully")
+
+	for gameId, game := range randomGames {
+		pageGameData := struct {
+			GameId  int
+			Player1 string
+			Player2 string
+			Player3 string
+			Player4 string
+		}{
+			gameId + 1, game.pairOne.playerOne.fname, game.pairOne.playerTwo.fname, game.pairTwo.playerOne.fname, game.pairTwo.playerTwo.fname,
+		}
+
+		// return the last element added to slice before it was always returning the first element.
+		err := templates.ExecuteTemplate(w, "gamesDisplayTmpl", pageGameData)
+		if err != nil {
+			log.Panicln(err)
+			return
+		}
+		log.Println("Template gamesDisplayTmpl executed successfully")
+	}
 }
 
 func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
