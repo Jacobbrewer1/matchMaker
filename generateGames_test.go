@@ -30,28 +30,33 @@ func Test_getPlayerCount(t *testing.T) {
 
 func Test_maxNumber(t *testing.T) {
 	tests := []struct {
-		name        string
-		players     []playerType
-		expectedMax int
+		name          string
+		players       []playerType
+		expectedGames int
+		expectedPairs int
 	}{
-		{"1 Player", setupPlayersArrayTest(1), 0},
-		{"3 Players", setupPlayersArrayTest(3), 3},
-		{"5 Players", setupPlayersArrayTest(5), 10},
-		{"7 Players", setupPlayersArrayTest(7), 21},
-		{"10 Players", setupPlayersArrayTest(10), 45},
-		{"11 Players", setupPlayersArrayTest(11), 55},
-		{"13 Players", setupPlayersArrayTest(13), 78},
-		{"17 Players", setupPlayersArrayTest(17), 136},
-		{"19 Players", setupPlayersArrayTest(19), 171},
-		{"21 Players", setupPlayersArrayTest(21), 210},
-		{"57 Players", setupPlayersArrayTest(57), 1596},
+		{"Input of 1", setupPlayersArrayTest(1), 0, 0},
+		{"Input of 3", setupPlayersArrayTest(3), 0, 3},
+		{"Input of 4", setupPlayersArrayTest(4), 3, 6},
+		{"Input of 5", setupPlayersArrayTest(5), 4, 10},
+		{"Input of 7", setupPlayersArrayTest(7), 6, 21},
+		{"Input of 10", setupPlayersArrayTest(10), 9, 45},
+		{"Input of 11", setupPlayersArrayTest(11), 10,55 },
+		{"Input of 13", setupPlayersArrayTest(13), 12, 78},
+		{"Input of 17", setupPlayersArrayTest(17), 16, 136},
+		{"Input of 19", setupPlayersArrayTest(19), 18, 171},
+		{"Input of 21", setupPlayersArrayTest(21), 20, 210},
+		{"Input of 57", setupPlayersArrayTest(57), 56, 1596},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotInt := maxNumber(len(tt.players), pairsText, playersText)
-			if gotInt != tt.expectedMax {
-				t.Errorf("maxNumber() = %v, expected %v", gotInt, tt.expectedMax)
+			gotGames, gotPairs := maxNumber(len(tt.players))
+			if gotGames != tt.expectedGames {
+				t.Errorf("maxNumber(games) = %v, expected %v", gotGames, tt.expectedGames)
+			}
+			if gotPairs != tt.expectedPairs {
+				t.Errorf("maxNumber(pairs) = %v, expected %v", gotPairs, tt.expectedGames)
 			}
 		})
 	}
@@ -138,6 +143,7 @@ func Test_generateGames(t *testing.T) {
 	}{
 		{"1 Player", setupPlayersArrayTest(1), true},
 		{"3 Players", setupPlayersArrayTest(3), true},
+		{"4 Players", setupPlayersArrayTest(4), false},
 		{"7 Players", setupPlayersArrayTest(7), false},
 		{"10 Players", setupPlayersArrayTest(10), false},
 		{"11 Players", setupPlayersArrayTest(11), false},
