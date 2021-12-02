@@ -48,3 +48,19 @@ function generateGames() {
         }
     });
 }
+
+function clearBackend() {
+    $.ajax({
+        url: '/cleanse',
+        method: 'post',
+        success: (d) => {
+            document.getElementById('cleanseProgramButton').classList.toggle('button--loading')
+            console.log("Backend cleared", d);
+            gamesDisplayer.innerHTML += d;
+        },
+        error: (d) => {
+            document.getElementById('cleanseProgramButton').classList.toggle('button--loading')
+            console.log("An error occurred. Please try again");
+        }
+    });
+}

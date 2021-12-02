@@ -113,6 +113,12 @@ func getPlayerCount(people []playerType) (int, int) {
 	return malePlayers, femalePlayers
 }
 
+func clearProgramBackend(w http.ResponseWriter, r *http.Request) {
+	players = nil
+	pairings = nil
+	generatedDoubles = nil
+}
+
 func main() {
 	handleFilePath()
 
@@ -124,6 +130,8 @@ func main() {
 	http.HandleFunc("/addPlayer", addPlayerHandler)
 
 	http.HandleFunc("/createGames", createGamesHandler)
+
+	http.HandleFunc("/cleanse", clearProgramBackend)
 
 	err := http.ListenAndServe(":8081", nil)
 	if err != nil {

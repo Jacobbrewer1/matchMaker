@@ -24,6 +24,11 @@
             onclick="document.getElementById('generateGames').classList.toggle('button--loading'), generateGames()">
         <span class="button__text">Generate Games</span>
     </button>
+
+    <button id="cleanseProgramButton" type="button" class="button"
+            onclick="document.getElementById('cleanseProgramButton').classList.toggle('button--loading'), clearBackend()">
+        <span class="button__text">Clear backend</span>
+    </button>
 </div>
 
 <div class="spinner-grow" id="playerSpinner" style="position: absolute"></div>
