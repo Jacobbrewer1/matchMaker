@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func setupPlayersArray(numberOfPlayers int) []playerType {
+func setupPlayersArrayTest(numberOfPlayers int) []playerType {
 	numberOfPlayers--
 	playerCount := 0
 	var testPlayers []playerType
@@ -37,7 +37,7 @@ func setupPlayersArray(numberOfPlayers int) []playerType {
 	return testPlayers
 }
 
-func setupThirdFemaleArray() []playerType {
+func setupThirdFemaleArrayTest() []playerType {
 	playerCount := 0
 	var testPlayers []playerType
 	abilityTest := 1
@@ -67,7 +67,7 @@ func setupThirdFemaleArray() []playerType {
 	return testPlayers
 }
 
-func setupSingleGenderPlayers(gender bool) []playerType {
+func setupSingleGenderPlayersTest(gender bool) []playerType {
 	playerCount := 0
 	var testPlayers []playerType
 	abilityTest := 1
@@ -93,7 +93,7 @@ func setupSingleGenderPlayers(gender bool) []playerType {
 	return testPlayers
 }
 
-func setupErrorPlayers() []playerType {
+func setupErrorPlayersTest() []playerType {
 	playerCount := 0
 	var testPlayers []playerType
 	for {
@@ -111,7 +111,7 @@ func setupErrorPlayers() []playerType {
 	return testPlayers
 }
 
-func setupGenderStrings(playerCount int, blank bool) []string {
+func setupGenderStringsTest(playerCount int, blank bool) []string {
 	var genders []string
 	localCount := 0
 	for {
@@ -134,7 +134,7 @@ func setupGenderStrings(playerCount int, blank bool) []string {
 	return genders
 }
 
-func checkForDuplicatesPairs(pairings []partners) bool {
+func checkForDuplicatesPairsTest(pairings []partners) bool {
 	for pairId, pair := range pairings {
 		for selectedPairId, selectedPair := range pairings {
 			if pairId == selectedPairId {
@@ -149,7 +149,7 @@ func checkForDuplicatesPairs(pairings []partners) bool {
 	return false
 }
 
-func checkForDuplicatesGamesDoubles(pairings []doublesFormat) bool {
+func checkForDuplicatesGamesDoublesTest(pairings []doublesFormat) bool {
 	for pairId, pair := range pairings {
 		for selectedPairId, selectedPair := range pairings {
 			if pairId == selectedPairId {
@@ -157,15 +157,39 @@ func checkForDuplicatesGamesDoubles(pairings []doublesFormat) bool {
 			}
 			if pair == selectedPair {
 				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
-				return false
+				return true
+			}
+			players := []playerType{
+				{pair.pairOne.playerOne.fname, pair.pairOne.playerOne.lname, pair.pairOne.playerOne.gender, pair.pairOne.playerOne.ability},
+				{pair.pairOne.playerTwo.fname, pair.pairOne.playerTwo.lname, pair.pairOne.playerTwo.gender, pair.pairOne.playerTwo.ability},
+				{pair.pairTwo.playerOne.fname, pair.pairTwo.playerOne.lname, pair.pairTwo.playerOne.gender, pair.pairTwo.playerOne.ability},
+				{pair.pairTwo.playerTwo.fname, pair.pairTwo.playerTwo.lname, pair.pairTwo.playerTwo.gender, pair.pairTwo.playerTwo.ability},
+			}
+			if checkGamePairTest(players) {
+				log.Printf("Pair Id: %v Pair: %v", pairId, selectedPairId)
+				return true
 			}
 		}
 	}
 	return false
 }
 
-func setupPartnersArray(numberOfPairs int) []partners {
-	playersArray := setupPlayersArray(numberOfPairs * 2)
+func checkGamePairTest(players []playerType) bool {
+	for playerId, player := range players {
+		for checkPlayerId, selectedPlayer := range players {
+			if playerId == checkPlayerId {
+				continue
+			}
+			if player == selectedPlayer {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func setupPartnersArrayTest(numberOfPairs int) []partners {
+	playersArray := setupPlayersArrayTest(numberOfPairs * 2)
 	max := len(playersArray)
 
 	pairCount := 0

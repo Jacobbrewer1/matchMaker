@@ -12,13 +12,13 @@ func Test_addPlayer(t *testing.T) {
 	}{
 		// The ability of the player is generated dynamically in the setupPlayersArray() method
 		//If it is redundant in the test, leave it as 5 for a placeholder
-		{"Even Count", setupPlayersArray(10), setupGenderStrings(10, false), 5, true},
-		{"All male", setupSingleGenderPlayers(true), setupGenderStrings(10, false), 5, true},
-		{"All female", setupSingleGenderPlayers(false), setupGenderStrings(10, false), 5, true},
-		{"Ability fail too low", setupPlayersArray(10), setupGenderStrings(10, false), 0, false},
-		{"Ability fail too high", setupPlayersArray(10), setupGenderStrings(10, false), 21, false},
-		{"Ability pass boundary", setupPlayersArray(10), setupGenderStrings(10, false), 1, true},
-		{"Fail players", setupPlayersArray(10), setupGenderStrings(10, true), 5, false},
+		{"Even Count", setupPlayersArrayTest(10), setupGenderStringsTest(10, false), 5, true},
+		{"All male", setupSingleGenderPlayersTest(true), setupGenderStringsTest(10, false), 5, true},
+		{"All female", setupSingleGenderPlayersTest(false), setupGenderStringsTest(10, false), 5, true},
+		{"Ability fail too low", setupPlayersArrayTest(10), setupGenderStringsTest(10, false), 0, false},
+		{"Ability fail too high", setupPlayersArrayTest(10), setupGenderStringsTest(10, false), 21, false},
+		{"Ability pass boundary", setupPlayersArrayTest(10), setupGenderStringsTest(10, false), 1, true},
+		{"Fail players", setupPlayersArrayTest(10), setupGenderStringsTest(10, true), 5, false},
 	}
 
 	for _, tt := range tests {

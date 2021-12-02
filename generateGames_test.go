@@ -9,10 +9,10 @@ func Test_getPlayerCount(t *testing.T) {
 		expectedMaleCount   int
 		expectedFemaleCount int
 	}{
-		{"Even Count", setupPlayersArray(10), 5, 5},
-		{"One third Female", setupThirdFemaleArray(), 7, 3},
-		{"All male", setupSingleGenderPlayers(true), 10, 0},
-		{"All female", setupSingleGenderPlayers(false), 0, 10},
+		{"Even Count", setupPlayersArrayTest(10), 5, 5},
+		{"One third Female", setupThirdFemaleArrayTest(), 7, 3},
+		{"All male", setupSingleGenderPlayersTest(true), 10, 0},
+		{"All female", setupSingleGenderPlayersTest(false), 0, 10},
 	}
 
 	for _, tt := range tests {
@@ -30,28 +30,33 @@ func Test_getPlayerCount(t *testing.T) {
 
 func Test_maxNumber(t *testing.T) {
 	tests := []struct {
-		name        string
-		players     []playerType
-		expectedMax int
+		name          string
+		players       []playerType
+		expectedGames int
+		expectedPairs int
 	}{
-		{"1 Player", setupPlayersArray(1), 0},
-		{"3 Players", setupPlayersArray(3), 3},
-		{"5 Players", setupPlayersArray(5), 10},
-		{"7 Players", setupPlayersArray(7), 21},
-		{"10 Players", setupPlayersArray(10), 45},
-		{"11 Players", setupPlayersArray(11), 55},
-		{"13 Players", setupPlayersArray(13), 78},
-		{"17 Players", setupPlayersArray(17), 136},
-		{"19 Players", setupPlayersArray(19), 171},
-		{"21 Players", setupPlayersArray(21), 210},
-		{"57 Players", setupPlayersArray(57), 1596},
+		{"Input of 1", setupPlayersArrayTest(1), 0, 0},
+		{"Input of 3", setupPlayersArrayTest(3), 0, 3},
+		{"Input of 4", setupPlayersArrayTest(4), 3, 6},
+		{"Input of 5", setupPlayersArrayTest(5), 4, 10},
+		{"Input of 7", setupPlayersArrayTest(7), 6, 21},
+		{"Input of 10", setupPlayersArrayTest(10), 9, 45},
+		{"Input of 11", setupPlayersArrayTest(11), 10,55 },
+		{"Input of 13", setupPlayersArrayTest(13), 12, 78},
+		{"Input of 17", setupPlayersArrayTest(17), 16, 136},
+		{"Input of 19", setupPlayersArrayTest(19), 18, 171},
+		{"Input of 21", setupPlayersArrayTest(21), 20, 210},
+		{"Input of 57", setupPlayersArrayTest(57), 56, 1596},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotInt := maxNumber(len(tt.players), pairsText, playersText)
-			if gotInt != tt.expectedMax {
-				t.Errorf("maxNumber() = %v, expected %v", gotInt, tt.expectedMax)
+			gotGames, gotPairs := maxNumber(len(tt.players))
+			if gotGames != tt.expectedGames {
+				t.Errorf("maxNumber(games) = %v, expected %v", gotGames, tt.expectedGames)
+			}
+			if gotPairs != tt.expectedPairs {
+				t.Errorf("maxNumber(pairs) = %v, expected %v", gotPairs, tt.expectedGames)
 			}
 		})
 	}
@@ -63,14 +68,14 @@ func Test_getPlayers(t *testing.T) {
 		players      []playerType
 		expectedFail bool
 	}{
-		{"1 Pair", setupPlayersArray(1), true},
-		{"3 Pairs", setupPlayersArray(3), false},
-		{"4 Pairs", setupPlayersArray(4), false},
-		{"7 Pairs", setupPlayersArray(7), false},
-		{"10 Pairs", setupPlayersArray(10), false},
-		{"11 Pairs", setupPlayersArray(11), false},
-		{"17 Pairs", setupPlayersArray(17), false},
-		{"21 Pairs", setupPlayersArray(21), false},
+		{"1 Pair", setupPlayersArrayTest(1), true},
+		{"3 Pairs", setupPlayersArrayTest(3), false},
+		{"4 Pairs", setupPlayersArrayTest(4), false},
+		{"7 Pairs", setupPlayersArrayTest(7), false},
+		{"10 Pairs", setupPlayersArrayTest(10), false},
+		{"11 Pairs", setupPlayersArrayTest(11), false},
+		{"17 Pairs", setupPlayersArrayTest(17), false},
+		{"21 Pairs", setupPlayersArrayTest(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -88,14 +93,14 @@ func Test_getPairs(t *testing.T) {
 		players      []partners
 		expectedFail bool
 	}{
-		{"1 Pair", setupPartnersArray(1), true},
-		{"3 Pairs", setupPartnersArray(3), false},
-		{"4 Pairs", setupPartnersArray(4), false},
-		{"7 Pairs", setupPartnersArray(7), false},
-		{"10 Pairs", setupPartnersArray(10), false},
-		{"11 Pairs", setupPartnersArray(11), false},
-		{"17 Pairs", setupPartnersArray(17), false},
-		{"21 Pairs", setupPartnersArray(21), false},
+		{"1 Pair", setupPartnersArrayTest(1), true},
+		{"3 Pairs", setupPartnersArrayTest(3), false},
+		{"4 Pairs", setupPartnersArrayTest(4), false},
+		{"7 Pairs", setupPartnersArrayTest(7), false},
+		{"10 Pairs", setupPartnersArrayTest(10), false},
+		{"11 Pairs", setupPartnersArrayTest(11), false},
+		{"17 Pairs", setupPartnersArrayTest(17), false},
+		{"21 Pairs", setupPartnersArrayTest(21), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -112,18 +117,18 @@ func Test_generatePairs(t *testing.T) {
 		name    string
 		players []playerType
 	}{
-		{"1 Player", setupPlayersArray(1)},
-		{"3 Players", setupPlayersArray(3)},
-		{"7 Players", setupPlayersArray(7)},
-		{"10 Players", setupPlayersArray(10)},
-		{"11 Players", setupPlayersArray(11)},
-		{"17 Players", setupPlayersArray(17)},
-		{"21 Players", setupPlayersArray(21)},
+		{"1 Player", setupPlayersArrayTest(1)},
+		{"3 Players", setupPlayersArrayTest(3)},
+		{"7 Players", setupPlayersArrayTest(7)},
+		{"10 Players", setupPlayersArrayTest(10)},
+		{"11 Players", setupPlayersArrayTest(11)},
+		{"17 Players", setupPlayersArrayTest(17)},
+		{"21 Players", setupPlayersArrayTest(21)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotPairs := generateRandomPairs(tt.players)
-			if checkForDuplicatesPairs(gotPairs) {
+			if checkForDuplicatesPairsTest(gotPairs) {
 				t.Errorf("generateRandomPairs() = %v, expected %v", false, true)
 			}
 		})
@@ -136,12 +141,13 @@ func Test_generateGames(t *testing.T) {
 		players      []playerType
 		expectedFail bool
 	}{
-		{"1 Player", setupPlayersArray(1), true},
-		{"3 Players", setupPlayersArray(3), true},
-		{"7 Players", setupPlayersArray(7), false},
-		{"10 Players", setupPlayersArray(10), false},
-		{"11 Players", setupPlayersArray(11), false},
-		{"17 Players", setupPlayersArray(17), false},
+		{"1 Player", setupPlayersArrayTest(1), true},
+		{"3 Players", setupPlayersArrayTest(3), true},
+		{"4 Players", setupPlayersArrayTest(4), false},
+		{"7 Players", setupPlayersArrayTest(7), false},
+		{"10 Players", setupPlayersArrayTest(10), false},
+		{"11 Players", setupPlayersArrayTest(11), false},
+		{"17 Players", setupPlayersArrayTest(17), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -149,7 +155,7 @@ func Test_generateGames(t *testing.T) {
 			if gotFailed != tt.expectedFail {
 				t.Errorf("generateRandomPairs() = %v, expected %v", gotFailed, tt.expectedFail)
 			}
-			if checkForDuplicatesGamesDoubles(gotGames) {
+			if checkForDuplicatesGamesDoublesTest(gotGames) {
 				t.Errorf("generateRandomPairs() contains duplicates, expected no duplicates")
 			}
 		})

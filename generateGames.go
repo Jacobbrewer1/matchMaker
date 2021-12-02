@@ -29,7 +29,7 @@ type doublesFormat struct {
 var pairings []partners
 var generatedDoubles []doublesFormat
 
-func setupPlayersArrayTest() {
+func setupPlayersArray() {
 	playerCount := 0
 	for {
 		var tempPlayer playerType
@@ -53,7 +53,7 @@ func setupPlayersArrayTest() {
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 	// maleCount, femaleCount := getPlayerCount(players)
 
-	setupPlayersArrayTest()
+	setupPlayersArray()
 
 	randomGames, fail := generateRandomGames(players)
 	if fail {
@@ -97,7 +97,7 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 		return nil, false
 	}
 
-	maxGames := maxNumber(pairsTotal, gamesText, pairsText)
+	maxGames, _ := maxNumber(len(players))
 
 	var tempDubsArray []doublesFormat
 	var tempDubs doublesFormat
@@ -115,6 +115,15 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 			if fail {
 				log.Println("Not enough played added, no games generated")
 				return nil, true
+			}
+			playerCheck := []playerType{
+				{p1.playerOne.fname, p1.playerOne.lname, p1.playerOne.gender, p1.playerOne.ability},
+				{p1.playerTwo.fname, p1.playerTwo.lname, p1.playerTwo.gender, p1.playerTwo.ability},
+				{p2.playerOne.fname, p2.playerOne.lname, p2.playerOne.gender, p2.playerOne.ability},
+				{p2.playerTwo.fname, p2.playerTwo.lname, p2.playerTwo.gender, p2.playerTwo.ability},
+			}
+			if checkPair(playerCheck) {
+				continue
 			}
 			if p1 != p2 {
 				break
@@ -147,6 +156,21 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 	return tempDubsArray, false
 }
 
+func checkPair(dubsPlayers []playerType) bool {
+	for playerId, person := range dubsPlayers {
+		for checkPlayerId, selectedPlayer := range dubsPlayers {
+			if playerId == checkPlayerId {
+				continue
+			}
+			if person == selectedPlayer {
+				log.Printf("Duplicate Player found: %v", person)
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func generateRandomPairs(people []playerType) []partners {
 	playersTotal := len(people)
 	if playersTotal < 2 {
@@ -154,7 +178,11 @@ func generateRandomPairs(people []playerType) []partners {
 		return nil
 	}
 
-	maxPairs := maxNumber(playersTotal, pairsText, playersText)
+	_, maxPairs := maxNumber(playersTotal)
+	if maxPairs == 0 {
+		log.Println("How enough players to generate doubles games")
+		return nil
+	}
 
 	var tempPairArray []partners
 	var tempPair partners
@@ -203,10 +231,23 @@ func generateRandomPairs(people []playerType) []partners {
 	return tempPairArray
 }
 
-func maxNumber(maxNumber int, textOne string, textTwo string) int {
-	max := maxNumber * (maxNumber - 1) / 2
-	log.Printf("Max number of %v for %v %v: %v", textOne, maxNumber, textTwo, max)
-	return max
+func maxNumber(number int) (int, int) {
+	pairs := 0
+	if number < 2 {
+		log.Println("Not enough players added to generate pairs")
+	} else {
+		pairs = number * (number - 1) / 2
+		log.Printf("Max number of %v for %v %v: %v", pairsText, number, playersText, number)
+	}
+
+	if number < 4 {
+		log.Printf("Not enough pairs added to generate %v", gamesText)
+		number = 0
+	} else {
+		number--
+		log.Printf("Max number of %v for %v %v: %v", gamesText, number + 1, pairsText, number)
+	}
+	return number, pairs
 }
 
 func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool) {
