@@ -51,9 +51,7 @@ func setupPlayersArray() {
 }
 
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
-	// maleCount, femaleCount := getPlayerCount(players)
-
-	setupPlayersArray()
+	setupPlayersArray() // TODO : Remove this when ready for release
 
 	randomGames, fail := generateRandomGames(players)
 	if fail {
