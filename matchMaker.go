@@ -119,6 +119,11 @@ func clearProgramBackend(w http.ResponseWriter, r *http.Request) {
 	generatedDoubles = nil
 }
 
+func playerRemoval(w http.ResponseWriter, r *http.Request) {
+	playerId := r.FormValue("playerIdR")
+	log.Println(playerId)
+}
+
 func main() {
 	handleFilePath()
 
@@ -128,6 +133,7 @@ func main() {
 	log.Println("Listening...")
 
 	http.HandleFunc("/addPlayer", addPlayerHandler)
+	http.HandleFunc("/removePlayer", playerRemoval)
 
 	http.HandleFunc("/createGames", createGamesHandler)
 

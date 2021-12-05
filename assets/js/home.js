@@ -64,3 +64,32 @@ function clearBackend() {
         }
     });
 }
+
+function playerRemoval(evtr) {
+    evtr.preventDefault()
+    let form = evtr.target;
+    let formData = new FormData(form);
+    let playerToRemove = formData.get('playerIdR');
+    if (playerToRemove != null && playerToRemove !== "") {
+        $('#playerRemoveModal').hide();
+        $('#playerSpinner').show();
+        $.ajax({
+            url: '/removePlayer',
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (d) => {
+                $('#playerSpinner').hide();
+                console.log("Player Removed", d);
+                form.reset();
+            },
+            error: (d) => {
+                $('#playerSpinner').hide();
+                console.log("An error occurred. Please try again");
+            }
+        });
+    }
+
+    return false;
+}
