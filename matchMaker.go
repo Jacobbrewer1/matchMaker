@@ -63,7 +63,7 @@ func renderPlayerTemplate(w http.ResponseWriter, r *http.Request, player playerT
 		Gender   bool
 		Ability  int
 	}{
-		playerId, player.fname, player.lname, player.gender, player.ability,
+		playerId + 1, player.fname, player.lname, player.gender, player.ability,
 	}
 
 	// return the last element added to slice before it was always returning the first element.
