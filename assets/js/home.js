@@ -83,6 +83,8 @@ function playerRemoval(evtr) {
                 $('#playerSpinner').hide();
                 console.log("Player Removed", d);
                 form.reset();
+                players.innerHTML = null;
+                players.innerHTML += d;
             },
             error: (d) => {
                 $('#playerSpinner').hide();
