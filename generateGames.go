@@ -7,10 +7,6 @@ import (
 	"strconv"
 )
 
-const pairsText = "pair(s)"
-const playersText = "player(s)"
-const gamesText = "game(s)"
-
 type singles struct {
 	playerOne playerType
 	playerTwo playerType
