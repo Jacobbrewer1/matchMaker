@@ -121,7 +121,8 @@ func clearProgramBackend(w http.ResponseWriter, r *http.Request) {
 
 func playerRemoval(w http.ResponseWriter, r *http.Request) {
 	playerId := r.FormValue("playerIdR")
-	log.Println(playerId)
+	playerId = strings.TrimLeft(playerId, "0")
+	log.Printf("Padding removed from playerId, new value: %v", playerId)
 }
 
 func main() {
