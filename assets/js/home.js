@@ -84,6 +84,7 @@ function playerRemoval(evtr) {
                 console.log("Player Removed", d);
                 form.reset();
                 players.innerHTML = null;
+                gamesDisplayer.innerHTML = null
                 players.innerHTML += d;
             },
             error: (d) => {
