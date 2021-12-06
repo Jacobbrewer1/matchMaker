@@ -9,10 +9,13 @@ on:
       - master
       - develop
       - feature/*
-
 jobs:
   build:
-    runs-on: ubuntu-latest
+  # This will run it on multiple os's listed in the matrix
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Go
         uses: actions/setup-go@v2
