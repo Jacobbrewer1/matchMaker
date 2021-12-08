@@ -86,6 +86,7 @@ function playerRemoval(evtr) {
                 players.innerHTML = null;
                 gamesDisplayer.innerHTML = null
                 players.innerHTML += d;
+                generateGames()
             },
             error: (d) => {
                 $('#playerSpinner').hide();
