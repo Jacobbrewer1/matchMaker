@@ -119,6 +119,13 @@ func clearProgramBackend(w http.ResponseWriter, r *http.Request) {
 	generatedDoubles = nil
 }
 
+func init(){
+	log.Println("Initializing logging")
+	//log.SetPrefix("LOG: ")
+	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Lshortfile)
+	log.Println("Logging initialized")
+}
+
 func main() {
 	handleFilePath()
 
