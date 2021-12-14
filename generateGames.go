@@ -48,6 +48,10 @@ func setupPlayersArray() {
 
 func createGamesHandler(w http.ResponseWriter, r *http.Request) {
 	setupPlayersArray() // TODO : Remove this when ready for release
+	if len(players) == 0 {
+		log.Panicln("Players array is empty")
+		return
+	}
 
 	randomGames, fail := generateRandomGames(players)
 	if fail {
