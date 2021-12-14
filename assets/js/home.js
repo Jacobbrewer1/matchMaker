@@ -1,5 +1,5 @@
 var players = document.querySelector('#players');
-var gamesDisplayer = document.querySelector('#games')
+var gamesDisplayer = document.querySelector('#games');
 
 function onSubmit(evt) {
     evt.preventDefault()
@@ -38,12 +38,12 @@ function generateGames() {
         url: '/createGames',
         method: 'post',
         success: (d) => {
-            document.getElementById('generateGames').classList.toggle('button--loading')
+            document.getElementById('generateGames').classList.toggle('button--loading');
             console.log("Games generated", d);
             gamesDisplayer.innerHTML += d;
         },
         error: (d) => {
-            document.getElementById('generateGames').classList.toggle('button--loading')
+            document.getElementById('generateGames').classList.toggle('button--loading');
             console.log("An error occurred. Please try again");
         }
     });
@@ -54,12 +54,12 @@ function clearBackend() {
         url: '/cleanse',
         method: 'post',
         success: (d) => {
-            document.getElementById('cleanseProgramButton').classList.toggle('button--loading')
+            document.getElementById('cleanseProgramButton').classList.toggle('button--loading');
             console.log("Backend cleared", d);
             gamesDisplayer.innerHTML += d;
         },
         error: (d) => {
-            document.getElementById('cleanseProgramButton').classList.toggle('button--loading')
+            document.getElementById('cleanseProgramButton').classList.toggle('button--loading');
             console.log("An error occurred. Please try again");
         }
     });
