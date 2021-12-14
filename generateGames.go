@@ -116,7 +116,7 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 				{p2.playerOne.fname, p2.playerOne.lname, p2.playerOne.gender, p2.playerOne.ability},
 				{p2.playerTwo.fname, p2.playerTwo.lname, p2.playerTwo.gender, p2.playerTwo.ability},
 			}
-			if checkPair(playerCheck) {
+			if checkPair(playerCheck) || formalityChecker(p1, p2) {
 				continue
 			}
 			if p1 != p2 {
@@ -148,6 +148,43 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 	}
 
 	return tempDubsArray, false
+}
+
+// Returns true if the game is not a legitimate type
+func formalityChecker(pairOne partners, pairTwo partners) bool {
+	playerArray := []playerType{
+		{pairOne.playerOne.fname, pairOne.playerOne.lname, pairOne.playerOne.gender, pairOne.playerOne.ability},
+		{pairOne.playerTwo.fname, pairOne.playerTwo.lname, pairOne.playerTwo.gender, pairOne.playerTwo.ability},
+		{pairTwo.playerOne.fname, pairTwo.playerOne.lname, pairTwo.playerOne.gender, pairTwo.playerOne.ability},
+		{pairTwo.playerTwo.fname, pairTwo.playerTwo.lname, pairTwo.playerTwo.gender, pairTwo.playerTwo.ability},
+	}
+
+	male, female := getPlayerCount(playerArray)
+	if (female != male) && (male != 0 && female != 0) {
+		return false
+	}
+
+	switch getGameType(pairOne, pairTwo) {
+	case doublesGameText, mixedGameText:
+		return true
+	default:
+		return false
+	}
+}
+
+func getGameType(pairOne partners, pairTwo partners) string {
+	if pairOne.playerOne.gender && pairOne.playerTwo.gender && pairTwo.playerOne.gender && pairTwo.playerTwo.gender ||
+		(!pairOne.playerOne.gender && !pairOne.playerTwo.gender && !pairTwo.playerOne.gender && !pairTwo.playerTwo.gender) {
+		return doublesGameText
+	} else if pairOne.playerOne.gender && !pairOne.playerTwo.gender && pairTwo.playerOne.gender && !pairTwo.playerTwo.gender ||
+		(!pairOne.playerOne.gender && pairOne.playerTwo.gender && !pairTwo.playerOne.gender && pairTwo.playerTwo.gender) {
+		return mixedGameText
+	} else if !pairOne.playerOne.gender && pairOne.playerTwo.gender && !pairTwo.playerOne.gender && pairTwo.playerTwo.gender ||
+		(pairOne.playerOne.gender && !pairOne.playerTwo.gender && pairTwo.playerOne.gender && !pairTwo.playerTwo.gender) {
+		return mixedGameText
+	}
+
+	return ""
 }
 
 func checkPair(dubsPlayers []playerType) bool {
@@ -239,7 +276,7 @@ func maxNumber(number int) (int, int) {
 		number = 0
 	} else {
 		number--
-		log.Printf("Max number of %v for %v %v: %v", gamesText, number + 1, pairsText, number)
+		log.Printf("Max number of %v for %v %v: %v", gamesText, number+1, pairsText, number)
 	}
 	return number, pairs
 }
