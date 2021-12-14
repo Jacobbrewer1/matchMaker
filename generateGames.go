@@ -166,8 +166,10 @@ func formalityChecker(pairOne partners, pairTwo partners) bool {
 
 	switch getGameType(pairOne, pairTwo) {
 	case doublesGameText, mixedGameText:
+		log.Println("Game is legitimate")
 		return true
 	default:
+		log.Println("Game is not a legitimate type")
 		return false
 	}
 }
@@ -183,7 +185,6 @@ func getGameType(pairOne partners, pairTwo partners) string {
 		(pairOne.playerOne.gender && !pairOne.playerTwo.gender && pairTwo.playerOne.gender && !pairTwo.playerTwo.gender) {
 		return mixedGameText
 	}
-
 	return ""
 }
 
