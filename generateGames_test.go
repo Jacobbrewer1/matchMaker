@@ -52,11 +52,11 @@ func Test_maxNumber(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotGames, gotPairs := maxNumber(len(tt.players))
+			if gotPairs != tt.expectedPairs {
+				t.Errorf("maxNumber(pairs) = %v, expected %v", gotPairs, tt.expectedPairs)
+			}
 			if gotGames != tt.expectedGames {
 				t.Errorf("maxNumber(games) = %v, expected %v", gotGames, tt.expectedGames)
-			}
-			if gotPairs != tt.expectedPairs {
-				t.Errorf("maxNumber(pairs) = %v, expected %v", gotPairs, tt.expectedGames)
 			}
 		})
 	}
