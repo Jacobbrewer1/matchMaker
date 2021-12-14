@@ -41,7 +41,7 @@ func Test_maxNumber(t *testing.T) {
 		{"Input of 5", setupPlayersArrayTest(5), 4, 10},
 		{"Input of 7", setupPlayersArrayTest(7), 6, 21},
 		{"Input of 10", setupPlayersArrayTest(10), 9, 45},
-		{"Input of 11", setupPlayersArrayTest(11), 10,55 },
+		{"Input of 11", setupPlayersArrayTest(11), 10, 55},
 		{"Input of 13", setupPlayersArrayTest(13), 12, 78},
 		{"Input of 17", setupPlayersArrayTest(17), 16, 136},
 		{"Input of 19", setupPlayersArrayTest(19), 18, 171},
@@ -157,6 +157,50 @@ func Test_generateGames(t *testing.T) {
 			}
 			if checkForDuplicatesGamesDoublesTest(gotGames) {
 				t.Errorf("generateRandomPairs() contains duplicates, expected no duplicates")
+			}
+		})
+	}
+}
+
+func Test_getGameType(t *testing.T) {
+	tests := []struct {
+		name         string
+		pairOne      partners
+		pairTwo      partners
+		expectedText string
+	}{
+		{"male doubles", setupPartnersTest(0), setupPartnersTest(1), doublesGameText},
+		{"female expected", setupPartnersTest(2), setupPartnersTest(3), doublesGameText},
+		{"mixed expected", setupPartnersTest(4), setupPartnersTest(5), mixedGameText},
+		{"nil expected", setupPartnersTest(0), setupPartnersTest(5), ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotText := getGameType(tt.pairOne, tt.pairTwo)
+			if gotText != tt.expectedText {
+				t.Errorf("generateRandomPairs() = %v, expected %v", gotText, tt.expectedText)
+			}
+		})
+	}
+}
+
+func Test_formalityChecker(t *testing.T) {
+	tests := []struct {
+		name     string
+		pairOne  partners
+		pairTwo  partners
+		expected bool
+	}{
+		{"male doubles", setupPartnersTest(0), setupPartnersTest(1), true},
+		{"female expected", setupPartnersTest(2), setupPartnersTest(3), true},
+		{"mixed expected", setupPartnersTest(4), setupPartnersTest(5), true},
+		{"nil expected", setupPartnersTest(0), setupPartnersTest(5), false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotBool := formalityChecker(tt.pairOne, tt.pairTwo)
+			if gotBool != tt.expected {
+				t.Errorf("generateRandomPairs() = %v, expected %v", gotBool, tt.expected)
 			}
 		})
 	}
