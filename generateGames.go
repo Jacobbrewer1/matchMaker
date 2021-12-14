@@ -169,7 +169,7 @@ func formalityChecker(pairOne partners, pairTwo partners) bool {
 		log.Println("Game is legitimate")
 		return true
 	default:
-		log.Println("Game is not a legitimate type")
+		log.Println("Game is not legitimate")
 		return false
 	}
 }
@@ -265,6 +265,7 @@ func generateRandomPairs(people []playerType) []partners {
 
 func maxNumber(number int) (int, int) {
 	pairs := 0
+	games := 0
 	if number < 2 {
 		log.Println("Not enough players added to generate pairs")
 	} else {
@@ -276,10 +277,10 @@ func maxNumber(number int) (int, int) {
 		log.Printf("Not enough pairs added to generate %v", gamesText)
 		number = 0
 	} else {
-		number--
+		games = number / 2 // TODO : This equation needs to be corrected before the release
 		log.Printf("Max number of %v for %v %v: %v", gamesText, number+1, pairsText, number)
 	}
-	return number, pairs
+	return games, pairs
 }
 
 func getRandomPlayer(max int, people []playerType) (playerType, playerType, bool) {
