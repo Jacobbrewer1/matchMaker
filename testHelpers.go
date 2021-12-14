@@ -249,3 +249,53 @@ func setupPartnersArrayTest(numberOfPairs int) []partners {
 	}
 	return testPairArray
 }
+
+func setupPartnersTest(setup int) partners {
+	var pair partners
+	switch setup {
+	case 0:
+		p := partners{
+			playerOne: playerType{"Steve", "Jobs", true, 10},
+			playerTwo: playerType{"Nick", "Fury", true, 10},
+		}
+		pair = p
+		break
+	case 1:
+		p := partners{
+			playerOne: playerType{"Lewis", "Hamilton", true, 10},
+			playerTwo: playerType{"Bill", "Gates", true, 10},
+		}
+		pair = p
+		break
+	case 2:
+		p := partners{
+			playerOne: playerType{"Amy", "Winehouse", false, 10},
+			playerTwo: playerType{"Lucy", "Sparks", false, 10},
+		}
+		pair = p
+		break
+	case 3:
+		p := partners{
+			playerOne: playerType{"Lauren", "Hamilton", false, 10},
+			playerTwo: playerType{"Penny", "Hofstedder", false, 10},
+		}
+		pair = p
+		break
+	case 4:
+		p := partners{
+			playerOne: playerType{"Lewis", "Hamilton", true, 10},
+			playerTwo: playerType{"Lucy", "Rosewarn", false, 10},
+		}
+		pair = p
+		break
+	case 5:
+		p := partners{
+			playerOne: playerType{"Jacob", "Tucker", true, 10},
+			playerTwo: playerType{"Tash", "Lado", false, 10},
+		}
+		pair = p
+		break
+	}
+
+	return pair
+}
