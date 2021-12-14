@@ -37,16 +37,16 @@ func Test_maxNumber(t *testing.T) {
 	}{
 		{"Input of 1", setupPlayersArrayTest(1), 0, 0},
 		{"Input of 3", setupPlayersArrayTest(3), 0, 3},
-		{"Input of 4", setupPlayersArrayTest(4), 3, 6},
-		{"Input of 5", setupPlayersArrayTest(5), 4, 10},
-		{"Input of 7", setupPlayersArrayTest(7), 6, 21},
-		{"Input of 10", setupPlayersArrayTest(10), 9, 45},
-		{"Input of 11", setupPlayersArrayTest(11), 10, 55},
-		{"Input of 13", setupPlayersArrayTest(13), 12, 78},
-		{"Input of 17", setupPlayersArrayTest(17), 16, 136},
-		{"Input of 19", setupPlayersArrayTest(19), 18, 171},
-		{"Input of 21", setupPlayersArrayTest(21), 20, 210},
-		{"Input of 57", setupPlayersArrayTest(57), 56, 1596},
+		{"Input of 4", setupPlayersArrayTest(4), 2, 6},
+		{"Input of 5", setupPlayersArrayTest(5), 2, 10},
+		{"Input of 7", setupPlayersArrayTest(7), 3, 21},
+		{"Input of 10", setupPlayersArrayTest(10), 5, 45},
+		{"Input of 11", setupPlayersArrayTest(11), 5, 55},
+		{"Input of 13", setupPlayersArrayTest(13), 6, 78},
+		{"Input of 17", setupPlayersArrayTest(17), 8, 136},
+		{"Input of 19", setupPlayersArrayTest(19), 9, 171},
+		{"Input of 21", setupPlayersArrayTest(21), 10, 210},
+		{"Input of 57", setupPlayersArrayTest(57), 28, 1596},
 	}
 
 	for _, tt := range tests {
