@@ -51,7 +51,7 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 	if addPlayer(fname, lname, gender, atoi) {
 		log.Printf("Player added: %v, %v, %v", fname, lname, gender)
-		renderPlayerTemplate(w, r, players[len(players) - 1], len(players))
+		renderPlayerTemplate(w, r, players[len(players)-1], len(players))
 	}
 }
 
@@ -66,14 +66,13 @@ func renderPlayerTemplate(w http.ResponseWriter, r *http.Request, player playerT
 		playerId, player.fname, player.lname, player.gender, player.ability,
 	}
 
-		// return the last element added to slice before it was always returning the first element.
-		err := templates.ExecuteTemplate(w, "displayPlayer", pagePlayerData)
-		if err != nil {
-			log.Panicln(err)
-			return
-		}
-		log.Println("Template displayPlayer executed successfully")
+	// return the last element added to slice before it was always returning the first element.
+	err := templates.ExecuteTemplate(w, "displayPlayer", pagePlayerData)
+	if err != nil {
+		log.Panicln(err)
+		return
 	}
+	log.Println("Template displayPlayer executed successfully")
 }
 
 func addPlayer(fname string, lname string, gender string, ability int) bool {
@@ -142,22 +141,22 @@ func playerRemoval(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Removing player %v", players[id])
 
 	for playerId, _ := range players {
-		if playerId == len(players) - 1 {
+		if playerId == len(players)-1 {
 			break
 		}
 		if playerId < id {
 			continue
 		}
 
-		players[playerId] = players[playerId + 1]
+		players[playerId] = players[playerId+1]
 	}
 
 	for playerId, player := range players {
-		renderPlayerTemplate(w, r, player, playerId + 1)
+		renderPlayerTemplate(w, r, player, playerId+1)
 	}
 }
 
-func init(){
+func init() {
 	log.Println("Initializing logging")
 	//log.SetPrefix("LOG: ")
 	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Lshortfile)
