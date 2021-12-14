@@ -150,7 +150,7 @@ func generateRandomGames(players []playerType) ([]doublesFormat, bool) {
 	return tempDubsArray, false
 }
 
-// Returns true if the game is not a legitimate type
+// Returns true if the game is legitimate
 func formalityChecker(pairOne partners, pairTwo partners) bool {
 	playerArray := []playerType{
 		{pairOne.playerOne.fname, pairOne.playerOne.lname, pairOne.playerOne.gender, pairOne.playerOne.ability},
