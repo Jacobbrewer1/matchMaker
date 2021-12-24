@@ -51,29 +51,28 @@ func addPlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 	if addPlayer(fname, lname, gender, atoi) {
 		log.Printf("Player added: %v, %v, %v", fname, lname, gender)
-
-		pagePlayerData := struct {
-			PlayerId int
-			Fname    string
-			Lname    string
-			Gender   bool
-			Ability  int
-		}{
-			len(players), fname, lname, false, atoi,
-		}
-
-		if gender == "male" {
-			pagePlayerData.Gender = true
-		}
-
-		// return the last element added to slice before it was always returning the first element.
-		err := templates.ExecuteTemplate(w, "displayPlayer", pagePlayerData)
-		if err != nil {
-			log.Panicln(err)
-			return
-		}
-		log.Println("Template displayPlayer executed successfully")
+		renderPlayerTemplate(w, r, players[len(players)-1], len(players))
 	}
+}
+
+func renderPlayerTemplate(w http.ResponseWriter, r *http.Request, player playerType, playerId int) {
+	pagePlayerData := struct {
+		PlayerId int
+		Fname    string
+		Lname    string
+		Gender   bool
+		Ability  int
+	}{
+		playerId, player.fname, player.lname, player.gender, player.ability,
+	}
+
+	// return the last element added to slice before it was always returning the first element.
+	err := templates.ExecuteTemplate(w, "displayPlayer", pagePlayerData)
+	if err != nil {
+		log.Panicln(err)
+		return
+	}
+	log.Println("Template displayPlayer executed successfully")
 }
 
 func addPlayer(fname string, lname string, gender string, ability int) bool {
@@ -119,6 +118,51 @@ func clearProgramBackend(w http.ResponseWriter, r *http.Request) {
 	generatedDoubles = nil
 }
 
+func playerRemoval(w http.ResponseWriter, r *http.Request) {
+	setupPlayersArray()
+	playerIdTemp := r.FormValue("playerIdR")
+	playerIdTemp = strings.TrimLeft(playerIdTemp, "0")
+	log.Printf("Padding removed from playerIdTemp, new value: %v", playerIdTemp)
+
+	id, err := strconv.Atoi(playerIdTemp)
+	if err != nil {
+		log.Panicln(err)
+		http.Error(w, "error", 0)
+		return
+	}
+	if id < 0 || id > len(players) {
+		log.Panicf("Player Id is out of bounds. Rejecting %v", id)
+		http.Error(w, "error", 0)
+		return
+	}
+
+	id--
+
+	log.Printf("Removing player %v", players[id])
+
+	for playerId, _ := range players {
+		if playerId == len(players)-1 {
+			break
+		}
+		if playerId < id {
+			continue
+		}
+
+		players[playerId] = players[playerId+1]
+	}
+
+	for playerId, player := range players {
+		renderPlayerTemplate(w, r, player, playerId+1)
+	}
+}
+
+func init() {
+	log.Println("Initializing logging")
+	//log.SetPrefix("LOG: ")
+	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Lshortfile)
+	log.Println("Logging initialized")
+}
+
 func main() {
 	handleFilePath()
 
@@ -128,6 +172,7 @@ func main() {
 	log.Println("Listening...")
 
 	http.HandleFunc("/addPlayer", addPlayerHandler)
+	http.HandleFunc("/removePlayer", playerRemoval)
 
 	http.HandleFunc("/createGames", createGamesHandler)
 

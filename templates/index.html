@@ -20,6 +20,11 @@
         <span class="button__text">Add Player</span>
     </button>
 
+    <button name="removePlayerButton" id="removePlayerButton" type="button" class="addPlayer"
+            onclick="document.getElementById('playerRemoveModal').style.display='block'">
+        <span class="button__text">Remove Player</span>
+    </button>
+
     <button id="generateGames" type="button" class="button"
             onclick="document.getElementById('generateGames').classList.toggle('button--loading'), generateGames()">
         <span class="button__text">Generate Games</span>
@@ -38,9 +43,27 @@
 <div>
     <br>
     <table id="players"
-           style="float: right"></table>
-    <table id="games"
            style="float: left"></table>
+    <table id="games"
+           style="float: right"></table>
+</div>
+
+<div id="playerRemoveModal" class="modal">
+    <form class="modal-content animate" action="/" method="post" onsubmit="return playerRemoval(event);">
+        <div>
+            <span onclick="document.getElementById('playerRemoveModal').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <label for="playerIdR" style="align-content: center"><b>Player id to remove</b></label>
+            <input type="text" placeholder="07" name="playerIdR" required>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1; text-align: center">
+            <button type="button" onclick="document.getElementById('playerRemoveModal').style.display='none'" class="modelButtons">
+                Cancel
+            </button>
+            <button id="subbtn2" type="submit" class="modelButtons">Submit
+            </button>
+        </div>
+    </form>
 </div>
 
 <!-- The Modal -->
@@ -90,13 +113,15 @@
 </div>
 <script src="/assets/js/home.js"></script>
 <script>
-    // Get the modal
+    // Get the modals
     var modal = document.getElementById('id01');
+    var modalPlayerR = document.getElementById('playerRemoveModal');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            modalPlayerR.style.display = "none";
         }
     }
 </script>
